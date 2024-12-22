@@ -1,0 +1,24 @@
+-> Repartición de roles y responsabilidades:
+
+Joel Castellvi: Backend
+
+1. Diseño y estructuración de la lógica de cursos desde la perspectiva del profesor.
+2. CRUD de la creación de cursos por parte del profesor.
+3. Estadísticas avanzadas de los cursos de un profesor.
+4. Supervisión del Chatbot.
+
+
+Dani Martin: Data Science
+
+1. Elaboración del modelo de chatbot para responder FAQS.
+2. Estructuración del entreno de varios modelos de chatbot.
+3. Integración del chatbot final en Django.
+
+Pau Silveira: Backend
+
+1. Scrum master de la sección.
+2. Diseño y estructuración del CRUD de cursos.
+3. Sistema de recomendaciones con KNN (k nearest neighbors).
+4. Vista detallada de los cursos con implementación del KNN.
+
+
