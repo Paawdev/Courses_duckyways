@@ -1,0 +1,42 @@
+{% extends "role_management/teacher_chat.html" %}
+{% load static %}
+{% block title %}Sent Messages{% endblock %}
+
+{% block content %}
+<div class="container">
+<h2>Sent Messages</h2>
+{% if messages %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Recipient</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for message in messages %}
+        <tr>
+            <td>{{ message.recipient.username }}</td>
+            <td>{{ message.subject }}</td>
+            <td>{{ message.timestamp }}</td>
+            <td>
+                {% if message.is_read %}
+                <i class="bi bi-envelope-open" title="read"></i>
+                {% else %}
+                <i class="bi bi-envelope" title="unread"></i>
+                {% endif %}
+            </td>
+            <td><a href="{% url 'view_message' message.pk %}" class="btn btn-primary btn-sm"><i class="bi bi-eye" title="View"></i></a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+<p>No hay mensajes enviados.</p>
+{% endif %}
+</div>
+{% endblock %}

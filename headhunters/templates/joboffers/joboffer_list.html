@@ -1,0 +1,43 @@
+{% extends "users/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Lista de Ofertas de Trabajo</h1>
+    <div class="row">
+      {% if job_offers%}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Título</th>
+                        <th>Empresa</th>
+                        <th>Ubicación</th>
+                        <th>Fecha Publicación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for job in job_offers %}
+                    
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ job.title }}</td>
+                            <td>{{ job.company }}</td>
+                            <td>{{ job.location }}</td>
+                            <td>{{ job.posted_date|date:"d M, Y" }}</td>
+                            <td>
+                                <a href="{% url 'joboffer_detail' job.id %}" class="btn btn-info btn-sm">Ver</a>
+                                <a href="{% url 'joboffer_update' job.id %}" class="btn btn-warning btn-sm">Editar</a>
+                                <a href="{% url 'joboffer_delete' job.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-muted">No hay ofertas de trabajo disponibles en este momento.</p>
+        {% endif %}
+    </div>
+</div>
+<a href="{% url 'joboffer_create' %}">Crear nueva oferta</a>
+{% endblock %}

@@ -1,0 +1,19 @@
+<h1>Ranking de DuckyCoins</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Posición</th>
+            <th>Usuario</th>
+            <th>DuckyCoins</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in top_users %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ user.user.username }}</td>
+                <td>{{ user.balance }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

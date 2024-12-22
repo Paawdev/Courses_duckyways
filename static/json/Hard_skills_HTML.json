@@ -1,0 +1,282 @@
+[
+  {
+    "category": "HTML",
+    "question": "1. What does HTML stand for?",
+    "answers": [
+      "1. Hype Text Markup Language",
+      "2. Home Tool Markup Language",
+      "3. Hyperlinks and Text Markup Language"
+    ],
+    "correct_answer": "1. Hype Text Markup Language"
+  },
+  {
+    "category": "HTML",
+    "question": "2. Who is making the Web standards?",
+    "answers": [
+      "1. Microsoft",
+      "2. The World Wide Web Consortium",
+      "3. Mozilla",
+      "4. Google"
+    ],
+    "correct_answer": "2. The World Wide Web Consortium"
+  },
+  {
+    "category": "HTML",
+    "question": "3. Choose the correct HTML element for the largest heading:",
+    "answers": [
+      "1. <h1>",
+      "2. <heading>",
+      "3. <h6>",
+      "4. <head>"
+    ],
+    "correct_answer": "1. <h1>"
+  },
+  {
+    "category": "HTML",
+    "question": "4. What is the correct HTML element for inserting a line break?",
+    "answers": [
+      "1. <br>",
+      "2. <break>",
+      "3. <lb>"
+    ],
+    "correct_answer": "1. <br>"
+  },
+  {
+    "category": "HTML",
+    "question": "5. What is the correct HTML for adding a background color?",
+    "answers": [
+      "1. <body style='background-color:yellow;'>",
+      "2. <body bg='yellow'>",
+      "3. <background>yellow</background>"
+    ],
+    "correct_answer": "1. <body style='background-color:yellow;'>"
+  },
+  {
+    "category": "HTML",
+    "question": "6. Choose the correct HTML element to define important text",
+    "answers": [
+      "1. <b>",
+      "2. <strong>",
+      "3. <important>",
+      "4. <i>"
+    ],
+    "correct_answer": "2. <strong>"
+  },
+  {
+    "category": "HTML",
+    "question": "7. Choose the correct HTML element to define emphasized text",
+    "answers": [
+      "1. <em>",
+      "2. <i>",
+      "3. <italic>"
+    ],
+    "correct_answer": "1. <em>"
+  },
+  {
+    "category": "HTML",
+    "question": "8. What is the correct HTML for creating a hyperlink?",
+    "answers": [
+      "1. <a url='http://idonium.com'>Idonium.com</a>",
+      "2. <a>http://idonium.com</a>",
+      "3. <a name='http://idonium.com'>Idonium.com</a>",
+      "4. <a href='http://idonium.com'>Idonium.com</a>"
+    ],
+    "correct_answer": "4. <a href='http://idonium.com'>Idonium.com</a>"
+  },
+  {
+    "category": "HTML",
+    "question": "9. Which character is used to indicate an end tag?",
+    "answers": [
+      "1. *",
+      "2. ^",
+      "3. /",
+      "4. <"
+    ],
+    "correct_answer": "3. /"
+  },
+  {
+    "category": "HTML",
+    "question": "10. How can you open a link in a new tab/browser window?",
+    "answers": [
+      "1. <a href='url' target='_blank'>",
+      "2. <a href='url' target='new'>",
+      "3. <a href='url' new>"
+    ],
+    "correct_answer": "1. <a href='url' target='_blank'>"
+  },
+  {
+    "category": "HTML",
+    "question": "11. Which of these elements are all <table> elements?",
+    "answers": [
+      "1. <table><head><tfoot>",
+      "2. <table><tr><td>",
+      "3. <thead><body><tr>",
+      "4. <table><tr><tt>"
+    ],
+    "correct_answer": "2. <table><tr><td>"
+  },
+  {
+    "category": "HTML",
+    "question": "12. Inline elements are normally displayed without starting a new line.",
+    "answers": [
+      "1. True",
+      "2. False"
+    ],
+    "correct_answer": "1. True"
+  },
+  {
+    "category": "HTML",
+    "question": "13. How can you make a numbered list?",
+    "answers": [
+      "1. <ul>",
+      "2. <dl>",
+      "3. <list>",
+      "4. <ol>"
+    ],
+    "correct_answer": "4. <ol>"
+  },
+  {
+    "category": "HTML",
+    "question": "14. How can you make a bulleted list?",
+    "answers": [
+      "1. <ul>",
+      "2. <ol>",
+      "3. <list>",
+      "4. <dl>"
+    ],
+    "correct_answer": "1. <ul>"
+  },
+  {
+    "category": "HTML",
+    "question": "15. What is the correct HTML for making a checkbox?",
+    "answers": [
+      "1. <input type='checkbox'>",
+      "2. <checkbox>",
+      "3. <input type='check'>",
+      "4. <check>"
+    ],
+    "correct_answer": "1. <input type='checkbox'>"
+  },
+  {
+    "category": "HTML",
+    "question": "16. What is the correct HTML for making a text input field?",
+    "answers": [
+      "1. <textinput type='text'>",
+      "2. <textfield>",
+      "3. <input type='text'>",
+      "4. <input type='textfield>"
+    ],
+    "correct_answer": "3. <input type='text'>"
+  },
+  {
+    "category": "HTML",
+    "question": "17. What is the correct HTML for making a drop-down list?",
+    "answers": [
+      "1. <select>",
+      "2. <input type='list'>",
+      "3. <list>",
+      "4. <input type='dropdown'>"
+    ],
+    "correct_answer": "1. <select>"
+  },
+  {
+    "category": "HTML",
+    "question": "18. What is the correct HTML for making a text area?",
+    "answers": [
+      "1. <textarea>",
+      "2. <input type='textbox'>",
+      "3. <input type='textarea'>"
+    ],
+    "correct_answer": "1. <textarea>"
+  },
+  {
+    "category": "HTML",
+    "question": "19. What is the correct HTML for inserting an image?",
+    "answers": [
+      "1. <img href='image.gif' alt='MyImage'>",
+      "2. <image src='image.gif' alt='MyImage'>",
+      "3. <img src='image.gif' alt='MyImage'>",
+      "4. <img alt='MyImage'>image.gif</img>"
+    ],
+    "correct_answer": "3. <img src='image.gif' alt='MyImage'>"
+  },
+  {
+    "category": "HTML",
+    "question": "20. What is the correct HTML for inserting a background image?",
+    "answers": [
+      "1. <background img='background.gif'>",
+      "2. <body style='background-image:url(background.gif)'>",
+      "3. <body bg='background.gif'>"
+    ],
+    "correct_answer": "2. <body style='background-image:url(background.gif)'>"
+  },
+  {
+    "category": "HTML",
+    "question": "21. An <iframe> is used to display a web page within a web page.",
+    "answers": [
+      "1. True",
+      "2. There is no such thing as an <iframe>",
+      "3. False"
+    ],
+    "correct_answer": "1. True"
+  },
+  {
+    "category": "HTML",
+    "question": "22. HTML comments start with <!-- and end with -->",
+    "answers": [
+      "1. False",
+      "2. True"
+    ],
+    "correct_answer": "2. True"
+  },
+  {
+    "category": "HTML",
+    "question": "23. Block elements are normally displayed without starting a new line.",
+    "answers": [
+      "1. False",
+      "2. True"
+    ],
+    "correct_answer": "1. False"
+  },
+  {
+    "category": "HTML",
+    "question": "24. Which HTML element defines the title of a document?",
+    "answers": [
+      "1. <head>",
+      "2. <title>",
+      "3. <meta>"
+    ],
+    "correct_answer": "2. <title>"
+  },
+  {
+    "category": "HTML",
+    "question": "25. Which HTML attribute specifies an alternate text for an image, if the image cannot be displayed?",
+    "answers": [
+      "1. alt",
+      "2. title",
+      "3. src",
+      "4. longdesc"
+    ],
+    "correct_answer": "1. alt"
+  },
+  {
+    "category": "HTML",
+    "question": "26. Which doctype is correct for HTML5?",
+    "answers": [
+      "1. <!DOCTYPE html>",
+      "2. <!DOCTYPE HTML5>",
+      "3. <!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 5.0//EN'>"
+    ],
+    "correct_answer": "1. <!DOCTYPE html>"
+  },
+  {
+    "category": "HTML",
+    "question": "27. Which HTML element is used to specify a footer for a document or section?",
+    "answers": [
+      "1. <bottom>",
+      "2. <section>",
+      "3. <footer>"
+    ],
+    "correct_answer": "3. <footer>"
+  }
+]

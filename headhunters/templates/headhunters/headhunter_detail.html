@@ -1,0 +1,56 @@
+{% extends "users/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h2>{{ headhunter.user.username }}</h2>
+      <h5>{{ headhunter.company }}</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <!-- Foto de perfil -->
+        <div class="col-md-4 text-center">
+          {% if headhunter.profile_photo %}
+            <img src="{{ headhunter.profile_photo.url }}" alt="Profile Photo" class="img-fluid rounded-circle mb-3">
+          {% else %}
+            Imagen  no disponible
+          {% endif %}
+        </div>
+
+        <!-- Información -->
+        <div class="col-md-8">
+          <h2>Mis Datos</h2>
+          <p><strong>Teléfono:</strong> {{ headhunter.phone }}</p>
+          <p><strong>Rango:</strong> {{ headhunter.position }}</p>
+          <p><strong>Sitio Web:</strong> 
+            {% if headhunter.website %}
+              <a href="{{ headhunter.website }}" target="_blank">{{ headhunter.website }}</a>
+            {% else %}
+              No disponible
+            {% endif %}
+          </p>
+          <p><strong>LinkedIn:</strong> 
+            {% if headhunter.linkedin_profile %}
+              <a href="{{ headhunter.linkedin_profile }}" target="_blank">Perfil de LinkedIn</a>
+            {% else %}
+              No disponible
+            {% endif %}
+          </p>
+          <p><strong>Ubicación:</strong> {{ headhunter.city }}, {{ headhunter.country }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-center">
+      <!-- Botones de acción -->
+      {% if request.user == headhunter.user %}
+      <a href="{% url 'headhunter_update' pk=headhunter.pk %}" class="btn btn-warning me-2">Editar</a>
+      <form method="post" action="{% url 'headhunter_delete' pk=headhunter.pk %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar este headhunter?');">Eliminar</button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

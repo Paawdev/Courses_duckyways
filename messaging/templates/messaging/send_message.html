@@ -1,0 +1,69 @@
+{% extends "role_management/teacher_chat.html" %}
+{% load static %}
+
+{% block title %}Send Message{% endblock %}
+
+{% block content %}
+<div class="container">
+<h2>Send a Message</h2>
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3 position-relative">
+        <label for="receiver" class="form-label">To (Username)</label>
+        <input type="text" class="form-control" id="receiver" name="receiver" autocomplete="off" required>
+        <ul id="user-suggestions" class="list-group position-absolute" style="z-index: 1000; width: 100%; display: none;"></ul>
+    </div>
+    <div class="mb-3">
+        <label for="subject" class="form-label">Subject</label>
+        <input type="text" class="form-control" id="subject" name="subject">
+    </div>
+    <div class="mb-3">
+        <label for="body" class="form-label">Message</label>
+        <textarea class="form-control" id="body" name="body" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Send</button>
+</form>
+
+<script>
+    const receiverInput = document.getElementById('receiver');
+    const suggestionsList = document.getElementById('user-suggestions');
+
+    receiverInput.addEventListener('input', () => {
+        const query = receiverInput.value;
+
+        if (query.length > 0) {
+            fetch(`/messaging/search_users/?q=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    suggestionsList.innerHTML = '';
+                    suggestionsList.style.display = 'block';
+                    if (data.length > 0) {
+                        data.forEach(user => {
+                            const li = document.createElement('li');
+                            li.textContent = user.username;
+                            li.className = 'list-group-item list-group-item-action';
+                            li.style.cursor = 'pointer';
+                            li.addEventListener('click', () => {
+                                receiverInput.value = user.username;
+                                suggestionsList.style.display = 'none';
+                            });
+                            suggestionsList.appendChild(li);
+                        });
+                    } else {
+                        suggestionsList.innerHTML = '<li class="list-group-item text-muted">No users found</li>';
+                    }
+                });
+        } else {
+            suggestionsList.style.display = 'none';
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!receiverInput.contains(e.target) && !suggestionsList.contains(e.target)) {
+            suggestionsList.style.display = 'none';
+        }
+    });
+</script>
+</div>
+{% endblock %}
+

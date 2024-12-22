@@ -1,0 +1,13 @@
+<h1>Recompensas Disponibles</h1>
+<ul>
+    {% for reward in rewards %}
+        <li>
+            <img src="{{ reward.icon.url }}" alt="{{ reward.name }}">
+            <h2>{{ reward.name }}</h2>
+            <p>{{ reward.description }}</p>
+            <p>Costo: {{ reward.cost }} DuckyCoins</p>
+            <p>Stock: {{ reward.stock }}</p>
+            <a href="{% url 'redeem_reward' reward.id %}">Canjear</a>
+        </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,64 @@
+{% extends "role_management/dashboard_premium.html" %}
+{% block title %} Home Page {% endblock title%}
+{% load static %}
+
+
+
+
+
+
+{% block role_menu%}
+
+<div class="col-lg-4 col-md-8 col-sm-6 col-4">
+    <!-- <div class="right-icon text-right"> -->
+            <!-- Left links -->
+        
+            <!-- <li><a href="#" id="search"><i class="fa fa-search"></i></a></li> -->
+            <ul class="d-flex flex-row justify-content-end align-items-end justify-content-end">
+
+                <li class="nav-item bg-warning p-3">
+                    <a class="nav-link active d-flex flex-column text-center" aria-current="page"
+                        href="/messaging/inbox"><i class="bi bi-person-badge" title="Profile"></i><span
+                            class="small">Profile</span></a>
+                </li>
+                <li class="nav-item bg-warning p-3">
+                    <a class="nav-link active d-flex flex-column text-center" aria-current="page"
+                        href="/messaging/send"><i class="bi bi-mortarboard-fill" title="Academic Education"></i><span
+                            class="small">Education</span></a>
+                </li>
+                <li class="nav-item bg-warning p-3">
+                    <a class="nav-link active d-flex flex-column text-center" aria-current="page"
+                        href="/messaging/sent"><i class="bi bi-person-workspace" title="Work Experiences"></i><span
+                            class="small">Experiences</span></a>
+                </li>
+                <li class="nav-item bg-warning p-3">
+                    <a class="nav-link active d-flex flex-column text-center" aria-current="page"
+                        href="/messaging/sent"><i class="bi bi-tags" title="Skills"></i><span
+                            class="small">Skills</span></a>
+                </li>
+                <li class="nav-item bg-warning p-3">
+                    <a class="nav-link active d-flex flex-column text-center" aria-current="page"
+                        href="/messaging/sent"><i class="bi bi-heart" title="Volunteering"></i><span
+                            class="small">Volunteering</span></a>
+                </li>
+                <li class="nav-item bg-warning p-3">
+                    <a class="nav-link active d-flex flex-column text-center" aria-current="page"
+                        href="/messaging/sent"><i class="bi bi-file-earmark-code" title="Projects"></i><span
+                            class="small">Project</span></a>
+                </li>
+                <li class="nav-item bg-warning p-3">
+                    <a class="nav-link active d-flex flex-column text-center" aria-current="page"
+                        href="/messaging/sent"><i class="bi bi-award" title="Awards"></i><span
+                            class="small">Awards</span></a>
+                </li>
+                </ul>
+
+            
+        
+        <!-- </div> -->
+</div>
+{%endblock role_menu %}
+
+
+                        
+                    

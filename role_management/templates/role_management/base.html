@@ -1,0 +1,42 @@
+{% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title %}
+{% load static %}
+
+{% if user_role == 'teacher' %}
+
+{% block role_menu %}
+<ul class="d-flex flex-row justify-content-between align-items-center bg-warning p-3">
+
+<li class="nav-item">
+    <a class="nav-link active d-flex flex-column text-center" aria-current="page"
+        href="#"><i class="bi bi-house"></i><span
+            class="small">Home</span></a>
+</li>
+<li class="nav-item">
+    <a class="nav-link d-flex flex-column text-center" aria-current="page"
+        href="#"><i class="bi bi-file-earmark-person"></i><span class="small">My
+            Network</span></a>
+</li>
+<li class="nav-item">
+    <a class="nav-link d-flex flex-column text-center" aria-current="page"
+        href="#"><i class="bi bi-journal-bookmark"></i><span
+            class="small">Jobs</span></a>
+</li>
+<li class="nav-item">
+    <a class="nav-link d-flex flex-column text-center" aria-current="page"
+        href="#"><i class="bi bi-cloud-download"></i><span
+            class="small">Messaging</span></a>
+</li>
+<li class="nav-item">
+    <a class="nav-link d-flex flex-column text-center" aria-current="page"
+        href="#"><i class="bi bi-person-workspace"></i></i><span
+            class="small">Notifications</span></a>
+</li>
+<li class="nav-item">
+    <a class="nav-link d-flex flex-column text-center" aria-current="page"
+        href="#"><i class="bi bi-check2-square"></i><span
+            class="small">Notifications</span></a>
+</li>
+</ul>
+{%endblock role_menu %}
+{%endif%}

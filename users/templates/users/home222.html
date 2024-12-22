@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-lg-6">
+        <div class="singel-news mt-30">
+            <div class="news-thum pb-25">
+                {% if latest_post.image %}
+                <img src="{{ latest_post.image.url }}" alt="{{ latest_post.title }}" style="max-width: 100%; height: auto;">
+                {% endif %}
+            </div>
+            <div class="news-cont">
+                <ul>
+                    <li><a href="#"><i class="fa fa-calendar"></i>{{ latest_post.created_on}}</a></li>
+                    <li><a href="#"><i class="fa fa-user"></i>{{ latest_post.author}}</a></li>
+                    <li><a href="#"><i class="fa fa-tags"></i>{{
+                            latest_post.category_post.nameCategoryPost}}</a></li>
+                    <li><a href="#"><i class="fa fa-heart"></i>{{ latest_post.likes}}</a></li>
+                </ul>
+                <a href="{% url 'post_detail' latest_post.pk  %}">
+                    <h3>{{ latest_post.title}}</h3>
+                </a>
+                <p>{{ latest_post.content|safe|slice:":200" }}</p>
+            </div>
+        </div> <!-- singel news -->
+    </div>
+    <div class="col-lg-6">
+        {% for post2 in posts3MaxLike %}
+        <div class="singel-news news-list">
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="news-thum mt-30">
+                        {% if post2.image %}
+                        <img src="{{ post2.image.url }}" alt="{{ post2.title }}"
+                            style="max-width: 100%; height: auto;">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="news-cont mt-30">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-calendar"></i>{{ post2.created_on}}</a></li>
+                            <li><a href="#"><i class="fa fa-tags"></i>{{
+                                    post2.category_post.nameCategoryPost}}</a></li>
+                            <li><a href="#"><i class="fa fa-heart"></i>{{ post2.likes}}</a></li>
+                        </ul>
+                        <a href="{% url 'post_detail' post2.pk  %}">
+                            <h3>{{ post2.title}}</h3>
+                        </a>
+                        <p>{{ post2.content|safe|slice:":200" }}
+                        </p>
+                    </div>
+                </div>
+            </div> <!-- row -->
+            {% endfor%}
+        </div> <!-- singel news -->
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</div> <!-- row -->

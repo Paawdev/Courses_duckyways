@@ -1,0 +1,412 @@
+{% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title%}
+{% load static %}
+{% block content %}
+<!--====== HEADER PART ENDS ======-->
+
+<!--====== SEARCH BOX PART START ======-->
+
+<div class="search-box">
+    <div class="serach-form">
+        <div class="closebtn">
+            <span></span>
+            <span></span>
+        </div>
+        <form action="#">
+            <input type="text" placeholder="Search by keyword">
+            <button><i class="fa fa-search"></i></button>
+        </form>
+    </div> <!-- serach form -->
+</div>
+
+<!--====== SEARCH BOX PART ENDS ======-->
+
+<!--====== PAGE BANNER PART START ======-->
+
+<section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8"
+    style="background-image: url(images/page-banner-2.jpg)">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-banner-cont">
+                    <h2>{{course.title}}</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Courses</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{course.title}}</li>
+                        </ol>
+                    </nav>
+                </div> <!-- page banner cont -->
+            </div>
+        </div> <!-- row -->
+    </div> <!-- container -->
+</section>
+
+<!--====== PAGE BANNER PART ENDS ======-->
+
+<!--====== COURSES SINGEl PART START ======-->
+
+<section id="corses-singel" class="pt-90 pb-120 gray-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="corses-singel-left mt-30">
+                    <div class="title">
+                        <h3>{{course.title}}</h3>
+                    </div> <!-- title -->
+                    <div class="course-terms">
+                        <ul>
+                            <li>
+                                <div class="teacher-name">
+                                    <div class="thum">
+                                        <img src="{{course.profile_teacher.image.url}}" alt="Teacher">
+                                    </div>
+                                    <div class="name">
+                                        <span>Teacher</span>
+                                        <h6>{{course.profile_teacher.user.first_name}}
+                                            {{course.profile_teacher.user.last_name}}</h6>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="course-category">
+                                    <span>Category</span>
+                                    <h6>{{course.category}}</h6>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="review">
+                                    <span>Review</span>
+                                    <ul>
+                                        {% if course.reviews.all.count == 0 %}
+                                        <li><a href='#'>Add a review</a></li>
+                                        {% else %}
+                                        <li>{{average_rating}}</li>
+                                        {% endif %}
+                                        {% if average_rating > 0 %}
+                                        <li><i class="fa fa-star"></i></li>
+                                        {%else%}
+                                        <li><i class="far fa-star"></i></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div> <!-- course terms -->
+
+                    <div class="corses-singel-image pt-50">
+                        <img src="{{course.image.url}}" alt="Courses">
+                    </div> <!-- corses singel image -->
+
+                    <div class="corses-tab mt-30">
+                        <ul class="nav nav-justified" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="active" id="overview-tab" data-toggle="tab" href="#overview" role="tab"
+                                    aria-controls="overview" aria-selected="true">Overview</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="curriculam-tab" data-toggle="tab" href="#curriculam" role="tab"
+                                    aria-controls="curriculam" aria-selected="false">Curriculam</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="instructor-tab" data-toggle="tab" href="#instructor" role="tab"
+                                    aria-controls="instructor" aria-selected="false">Instructor</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews"
+                                    aria-selected="false">Reviews</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="overview" role="tabpanel"
+                                aria-labelledby="overview-tab">
+                                <div class="overview-description">
+                                    <div class="singel-description pt-40">
+                                        <h6>Course Summary</h6>
+                                        <p>{{course.description}}.</p>
+                                    </div>
+                                    <div class="singel-description pt-40">
+                                        <h6>Hardskills</h6>
+                                        <p>
+                                            {% for hardskill in course.hardskills.all %}
+                                            <span>{{ hardskill.name_hard_skill }}</span>
+                                            {% endfor %}
+                                        </p>
+                                        <h6>Certificates</h6>
+                                        <ul>
+                                            {% for certificate in course.certificates.all %}
+                                            <li>
+                                                - {{ certificate.name }} ({{ certificate.code }})
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div> <!-- overview description -->
+                            </div>
+
+                            <div class="tab-pane fade" id="curriculam" role="tabpanel" aria-labelledby="curriculam-tab">
+                                <div class="curriculam-cont">
+                                    {% for module in course.modules.all %}
+                                    <div class="title">
+                                        <h6>{{ forloop.counter }}.{{ module.title }}</h6>
+                                    </div>
+
+                                    <div class="accordion" id="accordionExample{{ forloop.counter }}">
+                                        {% with forloop.counter as module_counter %}
+                                        {% for lesson in module.lessons.all %}
+                                        <div class="card">
+                                            <div class="card-header"
+                                                id="heading{{ forloop.counter }}-module{{ module_counter }}">
+                                                <a href="#" data-toggle="collapse"
+                                                    data-target="#collapse{{ forloop.counter }}-module{{ module_counter }}"
+                                                    aria-expanded="true"
+                                                    aria-controls="collapse{{ forloop.counter }}-module{{ module_counter }}">
+                                                    <ul>
+                                                        <li><i class="fa fa-file-o"></i></li>
+                                                        <li><span class="lecture">Lecture {{ module_counter }}.{{ forloop.counter }}</span></li>
+                                                        <li><span class="head">{{ lesson.name }}</span></li>
+                                                        {% if lesson.duration %}
+                                                        <li><span class="time d-none d-md-block"><i
+                                                                    class="fa fa-clock-o"></i> <span>{{ lesson.duration }} min</span></span></li>
+                                                        {% else %}
+                                                        <li><span class="time d-none d-md-block"><i
+                                                                    class="fa fa-clock-o"></i> <span>0 min</span></span>
+                                                        </li>
+                                                        {% endif %}
+                                                    </ul>
+                                                </a>
+                                            </div>
+                                            <div id="collapse{{ forloop.counter }}-module{{ module_counter }}"
+                                                class="collapse"
+                                                aria-labelledby="heading{{ forloop.counter }}-module{{ module_counter }}"
+                                                data-parent="#accordionExample{{ module_counter }}">
+                                                <div class="card-body">
+                                                    <p>{{ lesson.description }}</p>
+                                                    <ul>
+                                                        <p class="font-weight-bold">Resources:</p>
+                                                        {% for resource in lesson.resources.all %}
+                                                        <li>
+                                                            <span class="mr-3 mb-3">- {{resource.name}}</span>
+                                                        </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                        {% endwith %}
+                                    </div>
+                                    <br>
+                                    {% endfor %}
+                                </div> <!-- curriculam cont -->
+                            </div>
+                            <div class="tab-pane fade" id="instructor" role="tabpanel" aria-labelledby="instructor-tab">
+                                <div class="instructor-cont">
+                                    <div class="instructor-author">
+                                        <div class="author-thum">
+                                            <img src="{{course.profile_teacher.image.url}}" alt="Instructor">
+                                        </div>
+                                        <div class="author-name">
+                                            <a href="#">
+                                                <h5>{{course.profile_teacher.user.first_name}}
+                                                    {{course.profile_teacher.user.last_name}}</h5>
+                                            </a>
+                                            <span>{{course.profile_teacher.hardskills}}</span>
+                                            <ul class="social">
+                                                <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="instructor-description pt-25">
+                                        <p>{{course.profile_teacher.bio}}</p>
+                                    </div>
+                                </div> <!-- instructor cont -->
+                            </div>
+                            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                                <div class="reviews-cont">
+                                    <div class="title">
+                                        <h6>Student Reviews</h6>
+                                    </div>
+                                    <ul>
+                                        {% for review in reviews %}
+                                        <li>
+                                            <div class="singel-reviews">
+                                                <div class="reviews-author">
+                                                    <div class="author-thum">
+                                                        <!-- Mostrar la imagen del usuario -->
+                                                        {% if review.user.profile_user.img_profile %}
+                                                        <img src="{{ review.user.profile_user.img_profile.url }}" alt="Reviews">
+                                                        {% else %}
+                                                        <!-- Imagen por defecto si no tiene imagen el usuario -->
+                                                        <img src="media\default.jpg" alt="Image User">
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="author-name">
+                                                        <!-- Mostrar el nombre completo del usuario -->
+                                                        <h6>{{ review.user.first_name }} {{ review.user.last_name }}
+                                                        </h6>
+                                                        <span>{{ review.date }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="reviews-description pt-20">
+                                                    <!-- Mostrar el comentario de la reseña -->
+                                                    <p>{{ review.comment }}</p>
+                                                    <div class="rating">
+                                                        <ul>
+                                                            <!-- Mostrar la puntuación de la reseña -->
+                                                            <li>{{ review.rating }}</li>
+                                                            {% if review %}
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            {% else%}
+                                                            <li><i class="far fa-star"></i></li>
+                                                            {% endif %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div> <!-- singel reviews -->
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <a href="{% url 'courses:review-course-create' course.id %}" class="btn btn-primary">Create Review</a>
+                                </div> <!-- reviews cont -->
+                            </div>
+                        </div> <!-- tab content -->
+                    </div>
+                </div> <!-- corses singel left -->
+
+            </div>
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-lg-12 col-md-6">
+                        <div class="course-features mt-30">
+                            <h4>Course Features </h4>
+                            <ul>
+                                <li><i class="fa fa-clock-o"></i>Duration : <span>{{formatted_duration}}</span></li>
+                                <li><i class="fa fa-clone"></i>Lessons : <span>{{total_lessons}}</span></li>
+                                <li><i class="fa fa-beer"></i>Resources : <span>{{total_resources}}</span></li>
+                                <li><i class="fa fa-user-o"></i>Students :
+                                    <span>{{course.enrolled_users.all.count}}</span>
+                                </li>
+                            </ul>
+                            <div class="price-button pt-10">
+                                {% if course.is_free %}
+                                <span>Price : <b>Free</b></span>
+                                {%else%}
+                                <span>Price : <b>{{course.price}} €</b></span>
+                                {%endif%}
+                                <a href="{% url 'courses:course-enroll-user' course.id %}" class="main-btn">Enroll
+                                    Now</a>
+                            </div>
+                        </div> <!-- course features -->
+                    </div>
+                    <div class="col-lg-12 col-md-6">
+                        <div class="You-makelike mt-30">
+                            <h4>You make like </h4>
+                            <div class="singel-makelike mt-20">
+                            </div>
+                                <div class="cont">
+                                    <a href="#"> <!-- añadir url de user_cv_create de profile_cv, con pk del user -->
+                                        <h4>¿Do you need help to create a CV?</h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="singel-makelike mt-20">
+                                </div>
+                                <div class="cont">
+                                    <a href="#"> <!-- añadir url del grupo headhunters llamada showoffer_list-->
+                                        <h4>¿Are you looking for new job opportunities?</h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="singel-makelike mt-20">
+                                </div>
+                                <div class="cont">
+                                    <a href="#"> <!-- añadir url de test_management a su landing que es /quizz-->
+                                        <h4>¿Do you want to know more about yourself?</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- row -->
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="releted-courses pt-95">
+                    <div class="title">
+                        <h3>Related Courses</h3>
+                    </div>
+                    <div class="row">
+                        {% for course in recommended_context %}
+                        <div class="col-md-6">
+                            <div class="single-course mt-30">
+                                <div class="thum">
+                                    <div class="image">
+                                        <img src="{{ course.recommended_course.image.url }}" alt="{{ course.recommended_course.title }}">
+                                    </div>
+                                    <div class="price">
+                                        {% if course.recommended_course.is_free %}
+                                        <span>Free</span>
+                                        {% else %}
+                                        <span>${{ course.recommended_course.price }}</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="cont">
+                                    <ul>
+                                        <li>{{course.average_recommend}}</li>
+                                        {% if course.average_recommend > 0 %}
+                                        <li><i class="fa fa-star"></i></li>
+                                        {%else%}
+                                        <li><i class="far fa-star"></i></li>
+                                        {% endif %}
+                                    </ul>
+                                    <span>({{course.course_reviews_count}} Reviews)</span>
+                                    <a href="{% url 'courses:course-detail' course.recommended_course.id %}">
+                                        <h4>{{ course.recommended_course.title }}</h4>
+                                    </a>
+                                    <div class="course-teacher">
+                                        <div class="thum">
+                                            <a href="#"><img src="{{ course.recommended_course.profile_teacher.image.url }}"
+                                                    alt="teacher"></a>
+                                        </div>
+                                        <div class="name">
+                                            <a href="#">
+                                                <h6>{{ course.recommended_course.profile_teacher.user.first_name }} {{course.recommended_course.profile_teacher.user.last_name }}</h6>
+                                            </a>
+                                        </div>
+                                        <div class="admin">
+                                            <ul>
+                                                {% if course.completed_count > 0 %}
+                                                <li><a href="#"><i class="fa fa-user"></i><span>{{course.completed_count}}</span></a></li>
+                                                {% else %}
+                                                <li><a href="#"><i class="fa fa-user"></i><span>0</span></a></li>
+                                                {% endif %}
+                                                {% if course.wishlist_count == 0 %}
+                                                <li><a href="#"><i class="fa fa-heart"></i><span>0</span></a></li>
+                                                {%else%}
+                                                <li><a href="#"><i class="fa fa-heart"></i><span>{{course.wishlist_count}}</span></a></li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- single-course -->
+                        </div> <!-- col-md-6 -->
+                        {% endfor %}
+                    </div> <!-- row -->
+                </div> <!-- releted-courses -->
+            </div> <!-- col-lg-8 -->
+        </div> <!-- row -->
+    </div> <!-- container -->
+</section>
+
+<!--====== COURSES SINGEl PART ENDS ======-->
+{% endblock content %}

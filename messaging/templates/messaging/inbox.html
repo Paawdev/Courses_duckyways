@@ -1,0 +1,126 @@
+{% extends "role_management/teacher_chat.html" %}
+
+{% block content %}
+<div class="container">
+
+<h2>Inbox</h2>
+
+ <form method="GET" class="mb-4 row g-3">
+    <div class="col-md-3">
+        <label for="sender" class="form-label">Sender</label>
+        <input type="text" class="form-control" id="sender" name="sender" placeholder="Sender username" value="{{ request.GET.sender }}">
+    </div>
+    <div class="col-md-3">
+        <label for="search" class="form-label">Search</label>
+        <input type="text" class="form-control" id="search" name="search" placeholder="Search in subject or body" value="{{ request.GET.search }}">
+    </div>
+    <div class="col-md-2">
+        <label for="start_date" class="form-label">Start Date</label>
+        <input type="date" class="form-control" id="start_date" name="start_date" value="{{ request.GET.start_date }}">
+    </div>
+    <div class="col-md-2">
+        <label for="end_date" class="form-label">End Date</label>
+        <input type="date" class="form-control" id="end_date" name="end_date" value="{{ request.GET.end_date }}">
+    </div>
+    <div class="col-md-2">
+        <label for="status" class="form-label">Status</label>
+        <select class="form-select" id="status" name="status">
+            <option value="">All</option>
+            <option value="read" {% if request.GET.status == "read" %}selected{% endif %}>Read</option>
+            <option value="unread" {% if request.GET.status == "unread" %}selected{% endif %}>Unread</option>
+        </select>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Filter</button>
+        <a href="{% url 'inbox' %}" class="btn btn-secondary">Clear</a>
+    </div>
+</form> 
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Sender</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for message in messages %}
+        <tr>
+            <td>{{ message.sender.username }}</td>
+            <td>{{ message.subject }}</td>
+            <td>{{ message.timestamp }}</td>
+            <td>
+                {% if message.is_read %}
+                <i class="bi bi-envelope-open" title="read"></i>
+                {% else %}
+                <i class="bi bi-envelope" title="unread"></i>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'view_message' message.pk %}" class="btn btn-primary btn-sm"><i class="bi bi-eye" title="View"></i></a>
+                <a href="{% url 'deactivate_message' message.pk %}" class="btn btn-warning btn-sm"><i class="bi bi-eye-slash" title="Desactivate"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if hidden_messages%}
+<h3>Hidden Messages</h3>
+
+<button class="btn btn-secondary mb-3" id="toggle-hidden">Show Archived Messages</button>
+
+<table class="table table-striped" id="hidden-messages" style="display: none;">
+    <thead>
+        <tr>
+            <th>Sender</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for message in hidden_messages %}
+        <tr>
+            <td>{{ message.sender.username }}</td>
+            <td>{{ message.subject }}</td>
+            <td>{{ message.timestamp }}</td>
+            <td>
+                {% if message.is_read %}
+                <i class="bi bi-envelope-open" title="read"></i>
+                {% else %}
+                <i class="bi bi-envelope" title="unread"></i>
+                {% endif %}
+            </td>
+            <td>
+                <form method="POST" action="{% url 'reactivate_message' message.pk %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-eye" title="reactivate_message"></i></button>
+                </form>
+                <form method="POST" action="{% url 'delete_message' message.pk %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash" title="Delete"></i></button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{%else%}
+<p>No hay mensajes ocultos</p>
+{% endif%}
+<script>
+    document.getElementById('toggle-hidden').addEventListener('click', () => {
+        const hiddenTable = document.getElementById('hidden-messages');
+        if (hiddenTable.style.display === 'none') {
+            hiddenTable.style.display = 'table';
+        } else {
+            hiddenTable.style.display = 'none';
+        }
+    });
+</script>
+</div>
+{% endblock content%}

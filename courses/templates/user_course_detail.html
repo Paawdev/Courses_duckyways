@@ -1,0 +1,201 @@
+{% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title%}
+{% load static %}
+{% block content %}
+<section id="corses-singel" class="pt-90 pb-120 gray-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="corses-singel-left mt-30">
+                    <div class="title">
+                        <h3>{{course.title}}</h3>
+                    </div> <!-- title -->
+                    <div class="course-terms">
+                        <ul>
+                            <li>
+                                <div class="teacher-name">
+                                    <div class="thum">
+                                        <img src="{{course.profile_teacher.image.url}}" alt="Teacher">
+                                    </div>
+                                    <div class="name">
+                                        <span>Teacher</span>
+                                        <h6>{{course.profile_teacher.user.first_name}} {{course.profile_teacher.user.last_name}}</h6>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="course-category">
+                                    <span>Category</span>
+                                    <h6>{{course.category}}</h6>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="review">
+                                    <span>Review</span>
+                                    <ul>
+                                        {% if course.reviews.all.count == 0 %}
+                                        <li><a href='#'>Add a review</a></li>
+                                         {% else %}
+                                        <li>{{average_rating}}</li>
+                                         {% endif %}
+                                        {% if average_rating > 0 %}
+                                        <li><i class="fa fa-star"></i></li>
+                                        {%else%}
+                                        <li><i class="far fa-star"></i></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div> <!-- course terms -->
+                    
+                    <div class="corses-singel-image pt-50">
+                        <img src="{{course.image.url}}" alt="Courses">
+                    </div> <!-- corses singel image -->
+
+                    <div class="corses-tab mt-30">
+                        <ul class="nav nav-justified" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="curriculam-tab" data-toggle="tab" href="#curriculam" role="tab" aria-controls="curriculam" aria-selected="false">Curriculam</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a>
+                            </li>
+                        </ul>
+                        
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                                <div class="overview-description">
+                                    <div class="singel-description pt-40">
+                                        <h6>Course Summary</h6>
+                                        <p>{{course.description}}.</p>
+                                    </div>
+                                    <div class="singel-description pt-40">
+                                        <h6>Hardskills</h6>
+                                        <p>
+                                            {% for hardskill in course.hardskills.all %}
+                                             <span>{{ hardskill.name_hard_skill }}</span>
+                                            {% endfor %}
+                                        </p>
+                                        <h6>Certificates</h6>
+                                        <ul>
+                                            {% for certificate in course.certificates.all %}
+                                            <li>
+                                                - {{ certificate.name }} ({{ certificate.code }}) 
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <br>
+                                    <!-- <div class="singel-description" style="display: flex; justify-content: flex-end;">
+                                        <a href="{% url 'teacher_dashboard' %}" class="btn btn-secondary">Back</a>
+                                    </div> -->
+                                </div> <!-- overview description -->
+                            </div>
+                            
+                            <div class="tab-pane fade" id="curriculam" role="tabpanel" aria-labelledby="curriculam-tab">
+                                <div class="curriculam-cont">
+                                    {% for module in course.modules.all %}
+                                    <div class="title">
+                                        <h6>{{ forloop.counter }}. {{ module.title }}</h6>
+                                    </div>
+
+                                    <div class="accordion" id="accordionExample{{ forloop.counter }}">
+                                        {% with forloop.counter as module_counter %}
+                                        {% for lesson in module.lessons.all %}
+                                        <div class="card {% if lesson.id in completed_lessons %}completed-lesson{% endif %}">
+                                            <div class="card-header" id="heading{{ forloop.counter }}-module{{ module_counter }}">
+                                                <a href="#" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}-module{{ module_counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}-module{{ module_counter }}">
+                                                    <ul>
+                                                        <li><i class="fa {% if lesson.id in completed_lessons %}fa-check-circle{% else %}fa-file-o{% endif %}"></i></li>
+                                                        <li><span class="lecture">Lecture {{ module_counter }}.{{ forloop.counter }}</span></li>
+                                                        <li><span class="head">{{ lesson.name }}</span></li>
+                                                        {% if lesson.duration %}
+                                                        <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span>{{ lesson.duration }} min</span></span></li>
+                                                        {% else %}
+                                                        <li><span class="time d-none d-md-block"><i class="fa fa-clock-o"></i> <span>0 min</span></span></li>
+                                                        {% endif %}
+                                                    </ul>
+                                                </a>
+                                            </div>
+                                            <div id="collapse{{ forloop.counter }}-module{{ module_counter }}" class="collapse" aria-labelledby="heading{{ forloop.counter }}-module{{ module_counter }}" data-parent="#accordionExample{{ module_counter }}">
+                                                <div class="card-body">
+                                                    <a href="{% url 'courses:lesson-detail' course.id module.id lesson.id %}">{{ lesson.name }}</a>
+                                                    <p>{{ lesson.description }}</p>
+                                                    <ul>
+                                                        <p class="font-weight-bold">Resources:</p>
+                                                        {% for resource in lesson.resources.all %}
+                                                        <li>
+                                                            <span class="mr-3 mb-3">- {{ resource.name }}</span>
+                                                        </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                        {% endwith %}
+                                    </div>
+                                    <br>
+                                    {% endfor %}
+                                </div> <!-- curriculam cont -->
+                            </div>
+
+                            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                                <div class="reviews-cont">
+                                    <div class="title">
+                                        <h6>Student Reviews</h6>
+                                    </div>
+                                    <ul>
+                                        {% for review in course.reviews.all %}
+                                        <li>
+                                            <div class="singel-reviews">
+                                                <div class="reviews-author">
+                                                    <div class="author-thum">
+                                                        <!-- Mostrar la imagen del usuario -->
+                                                        {% if review.user_image %}
+                                                            <img src="{{ review.user_image.url }}" alt="Reviews">
+                                                        {% else %}
+                                                            <!-- Imagen por defecto si no tiene imagen el usuario -->
+                                                            <img src="media\default.jpg" alt="Default Reviews">
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="author-name">
+                                                        <!-- Mostrar el nombre completo del usuario -->
+                                                        <h6>{{ review.user.first_name }} {{ review.user.last_name }}</h6>
+                                                        <span>{{ review.date }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="reviews-description pt-20">
+                                                    <!-- Mostrar el comentario de la reseña -->
+                                                    <p>{{ review.comment }}</p>
+                                                    <div class="rating">
+                                                        <ul>
+                                                            <!-- Mostrar la puntuación de la reseña -->
+                                                            <li>{{ review.rating }}</li>
+                                                            {% if review %}
+                                                                <li><i class="fa fa-star"></i></li>
+                                                            {% else%}
+                                                                <li><i class="far fa-star"></i></li>
+                                                            {% endif %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div> <!-- singel reviews -->
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div> <!-- reviews cont -->
+                            </div>
+                        </div> <!-- tab content -->
+                    </div>
+
+                </div>
+            </div>
+        </div>            
+    </div>               
+</section>
+{% endblock content %}

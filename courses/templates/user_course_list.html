@@ -1,0 +1,31 @@
+{% extends "role_management/dashboard_premium.html" %}
+{% block user_course %}
+<!-- START CENTRAL CONTENT -->
+    <div class="col-sm p-3 min-vh-100">
+        <h2 class="mb-4">MIS CURSOS</h2>
+
+        <!-- Teacher Courses -->
+        <div class="container">
+            <div class="row g-3">
+                {% for user_course in user_courses_list %}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <div class="card shadow-sm" style="max-width: 300px; height: auto;">
+                        <a href="{% url 'courses:course-user-detail' user_course.course.id %}"><img src="{{ user_course.course.image.url }}" class="card-img-top" alt="Course Image" style="height: 200px; object-fit: cover;"></a>
+                        <div class="card-body">
+                            <a href="{% url 'courses:course-user-detail' user_course.course.id %}"><h5 class="card-title">{{ user_course.course.title }}</h5></a>
+                            <p class="card-text">{{ user_course.course.description }}</p>
+                            {% if user_course.status.name == "completed" %}
+                            <p class="font-weight-bold">Curso completado!</p>
+                            {% elif user_course.status.name == "inprogress" %}
+                            <p>Tienes el {{ user_course.progress|floatformat:0 }}% del curso completado.</p>
+                            <a href="#url_delete" class="btn btn-danger">Abandonar</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- END CENTRAL CONTENT -->
+{% endblock %}

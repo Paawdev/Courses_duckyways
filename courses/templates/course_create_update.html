@@ -1,0 +1,18 @@
+{% extends "users/base.html" %}
+
+{% block content %}
+<h2>{% if course %}Actualizar Curso{% else %}Crear Curso{% endif %}</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Renderiza el formulario automáticamente -->
+    <button type="submit" class="btn btn-primary">{% if course %}Actualizar{% else %}Crear{% endif %}</button>
+</form>
+
+{% if course %}
+    <a href="{% url 'courses:teacher-course-detail' course.id %}" class="btn btn-secondary">Cancelar</a>
+{% else %}
+    <a href="{% url 'teacher_dashboard' %}" class="btn btn-secondary">Cancelar</a>
+{% endif %}
+
+{% endblock %}

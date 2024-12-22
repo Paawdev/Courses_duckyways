@@ -1,0 +1,122 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h3 class="mb-0">Add Recognition or Award</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        {{ form.profile_user }}
+                        
+                        <!-- Recognition Name -->
+                        <div class="mb-4">
+                            <label for="{{ form.name.id_for_label }}" class="form-label">Recognition/Award Name</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.name.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Awarding Entity -->
+                        <div class="mb-4">
+                            <label for="{{ form.entity.id_for_label }}" class="form-label">Awarding Organization</label>
+                            {{ form.entity }}
+                            {% if form.entity.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.entity.errors }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">Enter the name of the organization that granted the award</div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-4">
+                            <div class="textarea-header">
+                                <label for="{{ form.description.id_for_label }}" class="form-label">Description</label>
+                                <div class="form-text">Describe the recognition and why it was awarded</div>
+                            </div>
+                            <div class="textarea-field">
+                                {{ form.description }}
+                                {% if form.description.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.description.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Form Buttons -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+                            <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Save</button>
+                            <a href="{% url 'recognition_award_list' %}" class="btn btn-danger me-md-2 mr-2"><i class="fas fa-times"></i> Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Form styles */
+    .form-label {
+        font-weight: 500;
+    }
+    
+    .form-control {
+        padding: 0.75rem;
+        border-radius: 4px;
+        border: 1px solid #ced4da;
+    }
+    
+    /* Textarea specific styles */
+    .textarea-header {
+        margin-bottom: 10px;
+    }
+    
+    .textarea-field {
+        margin-top: 8px;
+    }
+    
+    textarea.form-control {
+        min-height: 120px;
+    }
+    
+    /* Helper text */
+    .form-text {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-top: 4px;
+    }
+    
+    /* Buttons */
+    .main-btn {
+        padding: 8px 24px;
+        font-weight: 500;
+    }
+    
+    .btn-outline-secondary {
+        padding: 8px 24px;
+        font-weight: 500;
+    }
+    
+    /* Error states */
+    .invalid-feedback {
+        font-size: 0.875rem;
+    }
+
+    /* Focus states */
+    .form-control:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+</style>
+{% endblock %}

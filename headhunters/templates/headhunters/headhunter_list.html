@@ -1,0 +1,13 @@
+{% extends "users/base.html" %}
+
+{% block content %}
+  <h1>Headhunters</h1>
+  <ul>
+    {% for headhunter in headhunters %}
+      <li>
+        <a href="{% url 'headhunter_detail' pk=headhunter.pk %}">{{ headhunter.company }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'headhunter_create' %}">Create new Headhunter</a>
+{% endblock %}

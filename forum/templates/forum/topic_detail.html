@@ -1,0 +1,25 @@
+{% extends 'users/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h1>{{ topic.title }}</h1>
+    <small>by {{ topic.creator }}</small>
+    <hr>
+    <h2>Replies</h2>
+    <ul class="list-group mb-3">
+        {% for reply in replies %}
+        <li class="list-group-item">
+            {{ reply.content }} - <small>by {{ reply.creator }}</small>
+        </li>
+        {% endfor %}
+    </ul>
+    {% if user.is_authenticated %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Reply</button>
+    </form>
+    {% else %}
+    <p>You need to <a href="{% url 'login' %}">login</a> to reply.</p>
+    {% endif %}
+</div>
+{% endblock %}

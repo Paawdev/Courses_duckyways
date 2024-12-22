@@ -1,0 +1,233 @@
+{% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title %}
+{% load static %}
+
+{% block content %}
+{% if user_role == 'teacher' %}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-sm-auto bg-light sticky-top">
+            <div class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top">
+                <!-- User Profile Image -->
+                <div class="dropdown">
+                    <a class="d-flex align-items-center justify-content-center p-1 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if profile_teacher.image %}
+                            <img class="thum-red" src="{{ profile_teacher.image.url }}" alt="Teacher" style="border-radius: 50%; width: 60px; height: 60px;">
+                        {%else %}
+                        <img class="thum-red" src="https://robohash.org/mail@ashallendesign.co.uk" alt="Teacher" style="border-radius: 50%; width: 60px; height: 60px;">
+                        {%endif%}
+                    </a>
+                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
+                        <li><a class="dropdown-item" href="#">Home</a></li>
+                        <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </div>
+                {%block aside %}
+                <!-- Sidebar Icons -->
+                <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
+                   
+                        
+                   
+                        <li class="nav-item">
+                            <a href="/role/teacher_dashboard" class="nav-link py-1 px-3 text-navy" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-person-lines-fill fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/teacher_classes" class="nav-link py-1 px-3 text-navy" title="Courses" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-journal-code fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/role/teacher_chat" class="nav-link py-1 px-3 text-navy" title="Chat" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-chat-dots fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/teacher_calendar" class="nav-link py-1 px-3 text-navy" title="Calendar" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-calendar3 fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/teacher_tasks" class="nav-link py-1 px-3 text-navy" title="Tasks" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-list-task fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/teacher_settings" class="nav-link py-1 px-3 text-navy" title="Settings" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-gear fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                    
+                </ul>
+                {% endblock aside%}
+            </div>
+        </div>
+
+        <div class="col-sm p-3 min-vh-100">
+       
+           {%block role_content%}
+           {% endblock role_content %}
+        </div>
+    </div>
+</div>
+
+
+{% elif user_role == 'headhunter' %}
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-sm-auto bg-light sticky-top">
+            <div class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top">
+                <!-- User Profile Image -->
+                <div class="dropdown">
+                    <a class="d-flex align-items-center justify-content-center p-1 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+                      {%if headhunter.profile_photo%}
+                            <img class="thum-red" src="{{ headhunter.profile_photo.url }}" alt="HeadHunter" style="border-radius: 50%; width: 60px; height: 60px;">
+                            {%else %}
+                            <img class="thum-red" src="data:image/jpeg;base64,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" alt="Teacher" style="border-radius: 50%; width: 60px; height: 60px;">
+                            {%endif%}
+                    </a>
+                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
+                        <li><a class="dropdown-item" href="#">Home</a></li>
+                        <li><a class="dropdown-item" href="#">Dashboard HH</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </div>
+
+                <!-- Sidebar Icons -->
+                <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
+                   
+                        
+                   
+                        <li class="nav-item">
+                            <a href="/headhunter_profile" class="nav-link py-1 px-3 text-navy" title="Profile" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-person-lines-fill fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/headhunter_offers" class="nav-link py-1 px-3 text-navy" title="Offers" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-card-checklist fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/headhunter_calendar" class="nav-link py-1 px-3 text-navy" title="Calendar" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-calendar3 fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/headhunter_settings" class="nav-link py-1 px-3 text-navy" title="Settings" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-gear fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm p-3 min-vh-100">
+            Headhunter
+        </div>
+     
+    </div>
+</div>
+
+{% elif user_role == 'member1' %}
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-sm-auto bg-light sticky-top">
+            <div class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top">
+                <!-- User Profile Image -->
+                <div class="dropdown">
+                    <a class="d-flex align-items-center justify-content-center p-1 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+                      {%if profile_user.profile_photo%}
+                      <img class="thum-red" src="{{ profile_user.profile_photo.url }}" alt="User" style="border-radius: 50%; width: 60px; height: 60px;">
+                      {%else %}
+                            <img class="thum-red" src="data:image/jpeg;base64,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" alt="Teacher" style="border-radius: 50%; width: 60px; height: 60px;">
+                            {%endif%}
+                    </a>
+                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
+                        <li><a class="dropdown-item" href="#">Home</a></li>
+                        <li><a class="dropdown-item" href="#">Profile CV</a></li>
+                        <li><a class="dropdown-item" href="#">Managment Profiles CV</a></li>
+                        <li><a class="dropdown-item" href="#">My Courses</a></li>
+                        <li><a class="dropdown-item" href="#">My Offers</a></li>
+                        <li><a class="dropdown-item" href="#">My Tests</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </div>
+
+                <!-- Sidebar Icons -->
+                <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
+                
+                    <div id="ID01">
+                        <li class="nav-item">
+                            <a href="/member1_profile" class="nav-link py-1 px-3 text-navy" title="Profile user" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-person-lines-fill fs-4 icon-hover" style="color: #092e56;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/heading" class="nav-link py-1 px-3 text-navy" title="Heading Data" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-card-heading fs-4 icon-hover" style="color: #092e56;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Skills" class="nav-link py-1 px-3 text-navy" title="Skills" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-tags fs-4 icon-hover" style="color: #092e56;"></i>
+                            </a>
+                        </li>
+                        <li>
+                        <li>
+                            <a href="/academic_education" class="nav-link py-1 px-3 text-navy" title="Academic Education" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-mortarboard-fill fs-4 icon-hover" style="color: #092e56;"></i>
+                            </a>
+                        </li>   
+                            <a href="/work_experience" class="nav-link py-1 px-3 text-navy" title="Work Experience" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-person-workspace fs-4 icon-hover" style="color: #092e56;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/volunteering" class="nav-link py-1 px-3 text-navy" title="Volunteering" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-bookmark-heart fs-4 icon-hover" style="color: #092e56;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/publications" class="nav-link py-1 px-3 text-navy" title="Publications" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-book fs-4 icon-hover" style="color: #092e56;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/certifications" class="nav-link py-1 px-3 text-navy" title="Certifications" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-award fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/certifications" class="nav-link py-1 px-3 text-navy" title="Certifications" data-bs-toggle="tooltip" data-bs-placement="right">
+                                <i class="bi bi-award fs-4 icon-hover" style="color: #07294d;"></i>
+                            </a>
+                        </li>
+                    </div>
+                        
+                   
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm p-3 min-vh-100">
+            Freemium-Premium
+        </div>
+     
+    </div>
+</div>
+
+{%endif%}
+
+{% endblock content %}

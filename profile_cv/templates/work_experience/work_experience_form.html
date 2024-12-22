@@ -1,0 +1,196 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h3 class="mb-0">Add Work Experience</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        {{ form.profile_user }}
+                        
+                        <!-- Job Title -->
+                        <div class="mb-4">
+                            <label for="{{ form.job_title.id_for_label }}" class="form-label">Job Title</label>
+                            {{ form.job_title }}
+                            {% if form.job_title.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.job_title.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Company Name -->
+                        <div class="mb-4">
+                            <label for="{{ form.company_name.id_for_label }}" class="form-label">Company Name</label>
+                            {{ form.company_name }}
+                            {% if form.company_name.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.company_name.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Dates Row -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="mb-3 mb-md-0">
+                                    <label for="{{ form.start_date.id_for_label }}" class="form-label">Start Date</label>
+                                    {{ form.start_date }}
+                                    {% if form.start_date.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form.start_date.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3 mb-md-0">
+                                    <label for="{{ form.end_date.id_for_label }}" class="form-label">End Date</label>
+                                    {{ form.end_date }}
+                                    {% if form.end_date.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form.end_date.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Current Job Checkbox -->
+                        <div class="form-check mb-4">
+                            {{ form.current_job }}
+                            <label class="form-check-label" for="{{ form.current_job.id_for_label }}">
+                                I currently work here
+                            </label>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-4">
+                            <div class="textarea-header">
+                                <label for="{{ form.description.id_for_label }}" class="form-label">Description</label>
+                                <div class="form-text">Describe your role and responsibilities</div>
+                            </div>
+                            <div class="textarea-field">
+                                {{ form.description }}
+                                {% if form.description.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.description.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Achievements -->
+                        <div class="mb-4">
+                            <div class="textarea-header">
+                                <label for="{{ form.achievements.id_for_label }}" class="form-label">Achievements</label>
+                                <div class="form-text">List your key achievements and contributions</div>
+                            </div>
+                            <div class="textarea-field">
+                                {{ form.achievements }}
+                                {% if form.achievements.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.achievements.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- References -->
+                        <div class="mb-4">
+                            <div class="textarea-header">
+                                <label for="{{ form.references.id_for_label }}" class="form-label">References</label>
+                                <div class="form-text">Add professional references (optional)</div>
+                            </div>
+                            <div class="textarea-field">
+                                {{ form.references }}
+                                {% if form.references.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.references.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Form Buttons -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+                            <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Save</button>
+                            <a href="{% url 'work_experience_list' %}" class="btn btn-danger me-md-2 mr-2"><i class="fas fa-times"></i> Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Form styles */
+    .form-label {
+        font-weight: 500;
+    }
+    
+    .form-control {
+        padding: 0.75rem;
+        border-radius: 4px;
+        border: 1px solid #ced4da;
+    }
+    
+    /* Textarea specific styles */
+    .textarea-header {
+        margin-bottom: 10px;
+    }
+    
+    .textarea-field {
+        margin-top: 8px;
+    }
+    
+    textarea.form-control {
+        min-height: 120px;
+    }
+    
+    /* Helper text */
+    .form-text {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-top: 4px;
+    }
+    
+    /* Buttons */
+    .main-btn {
+        padding: 8px 24px;
+        font-weight: 500;
+    }
+    
+    .btn-outline-secondary {
+        padding: 8px 24px;
+        font-weight: 500;
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle current job checkbox
+    const currentJob = document.getElementById('{{ form.current_job.id_for_label }}');
+    const endDate = document.getElementById('{{ form.end_date.id_for_label }}');
+    
+    if(currentJob && endDate) {
+        currentJob.addEventListener('change', function() {
+            endDate.disabled = this.checked;
+            if(this.checked) {
+                endDate.value = '';
+            }
+        });
+        
+        // Set initial state
+        endDate.disabled = currentJob.checked;
+    }
+});
+</script>
+{% endblock %}

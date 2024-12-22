@@ -1,0 +1,99 @@
+{% extends "users/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Encabezado -->
+    <div class="header text-center mb-4">
+        <h1 class="offer-title">{{ job_offer.title }}</h1>
+        <p class="text-muted">Publicado: {{ job_offer.posted_date }}</p>
+    </div>
+
+    <!-- Información General -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h5 class="section-title">Categoría:</h5>
+            <p>{{ job_offer.category.name }}</p>
+        </div>
+        <div class="col-md-6">
+            <h5 class="section-title">Sector:</h5>
+            <p>{{ job_offer.sector.name }}</p>
+        </div>
+    </div>
+
+    <!-- Descripción -->
+    <div class="description mb-4">
+        <h5 class="section-title">Descripción del Puesto:</h5>
+        <p>{{ job_offer.description }}</p>
+    </div>
+
+    <!-- Detalles Adicionales -->
+    <div class="details row mb-4">
+        <div class="col-md-6">
+            <h5 class="section-title">Ubicación:</h5>
+            <p>{{ job_offer.location|default:"No especificada" }}</p>
+        </div>
+        <div class="col-md-6">
+            <h5 class="section-title">Salario:</h5>
+            <p>{{ job_offer.salary|default:"A convenir" }}</p>
+        </div>
+        <div class="col-md-6">
+            <h5 class="section-title">Experiencia Requerida:</h5>
+            <p>{{ job_offer.required_experience|default:"No especificada" }} años</p>
+        </div>
+        <div class="col-md-6">
+            <h5 class="section-title">Fecha de Cierre:</h5>
+            <p>{{ job_offer.close_date|default:"Abierta hasta nuevo aviso" }}</p>
+        </div>
+    </div>
+
+    <!-- Habilidades Requeridas -->
+    <div class="skills mb-4">
+        <h5 class="section-title">Habilidades Requeridas:</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <h6 class="sub-title">Habilidades Técnicas:</h6>
+                <ul>
+                    {% for hard_skill in job_offer.required_hard_skills.all %}
+                    <li>{{ hard_skill.name }}</li>
+                    {% empty %}
+                    <li>No especificadas</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h6 class="sub-title">Habilidades Blandas:</h6>
+                <ul>
+                    {% for soft_skill in job_offer.required_soft_skills.all %}
+                    <li>{{ soft_skill.name }}</li>
+                    {% empty %}
+                    <li>No especificadas</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tests Relacionados -->
+    <div class="tests mb-4">
+        <h5 class="section-title">Tests Relacionados:</h5>
+        <ul>
+            {% for test in joboffer.JobOfferTests.all %}
+            <li>{{ test.name }}</li>
+            {% empty %}
+            <li>No hay tests asociados a esta oferta.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Botones de Acción -->
+    <div class="actions text-center mt-4">
+
+
+        {% csrf_token %}
+        <a href="{% url 'joboffer_update' job_offer.id %}" class="btn btn-warning btn-sm">Editar</a>
+        <a href="{% url 'joboffer_delete' job_offer.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

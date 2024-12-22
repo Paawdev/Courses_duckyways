@@ -1,0 +1,35 @@
+{% extends "users/base.html" %}
+
+{% block content %}
+  <div class="container mt-4">
+      <h1>Selecciona una oferta existente</h1>
+      
+      <!-- Mostrar las ofertas existentes -->
+      <form method="post">
+          {% csrf_token %}
+          
+          <div class="form-group">
+              <label for="selected_offer">Elige una oferta:</label>
+              <select name="selected_offer" id="selected_offer" class="form-control" required>
+                  <option value="" disabled selected>Selecciona una oferta</option>
+                  {% for offer in offers %}
+                      <!-- Verificar que el usuario logueado es el user del headhunter asociado a la oferta -->
+                      {% if offer.headhunter.user.id == request.user.id %}
+                          <option value="{{ offer.id }}">{{ offer.title }}</option>
+                      {% endif %}
+                  {% endfor %}
+              </select>
+          </div>
+          
+          <h3>Candidatos seleccionados</h3>
+          <ul>
+              {% for candidate in selected_candidates %}
+                  <li>{{ candidate.user.get_full_name }}</li>
+                  <input type="hidden" name="selected_candidates" value="{{ candidate.id }}">
+              {% endfor %}
+          </ul>
+
+          <button type="submit" class="btn btn-primary">Agregar candidatos a oferta</button>
+      </form>
+  </div>
+{% endblock %}

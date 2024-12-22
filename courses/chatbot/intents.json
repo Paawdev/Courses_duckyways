@@ -1,0 +1,442 @@
+{
+    "_comment": "Este archivo contiene las intenciones y patrones de preguntas frecuentes para una plataforma de aprendizaje en línea.",
+    "intents": [
+        {
+            "_comment": "Preguntas introductorias sobre la plataforma.",
+            "tag": "introduccion",
+            "patterns": [
+                "¿Qué es esta plataforma?",
+                "¿Cómo funciona este sitio?",
+                "¿Qué puedo aprender en esta página?",
+                "¿Para qué sirve la plataforma?",
+                "¿Qué tipo de aprendizaje ofrecen?",
+                "¿Se puede aprender en línea aquí?"
+            ],
+            "responses": [
+                "Esta es una plataforma de aprendizaje en línea con cursos y certificaciones en múltiples áreas."
+            ]
+        },
+        {
+            "_comment": "Preguntas sobre registro y creación de cuentas.",
+            "tag": "registro",
+            "patterns": [
+                "¿Cómo me registro en la plataforma?",
+                "¿Registrar una cuenta es gratis?",
+                "¿Qué datos necesito para crear una cuenta?",
+                "¿Es obligatorio tener una cuenta para usar la plataforma?",
+                "¿Dónde me registro?"
+            ],
+            "responses": [
+                "El registro es gratuito. Necesitas un correo electrónico y una contraseña. Puedes registrarte desde la opción 'Crear cuenta'."
+            ]
+        },
+        {
+            "_comment": "Preguntas sobre inicio de sesión.",
+            "tag": "inicio_sesion",
+            "patterns": [
+                "¿Cómo inicio sesión?",
+                "¿Qué hago si olvidé mi contraseña?",
+                "¿Puedo entrar con mi cuenta de Google?",
+                "¿Qué hago si no puedo acceder a mi cuenta?",
+                "¿Dónde inicio sesión?"
+            ],
+            "responses": [
+                "Para iniciar sesión, ingresa tu correo y contraseña. Si olvidaste tu contraseña, utiliza la opción de recuperación."
+            ]
+        },
+        {
+            "_comment": "Preguntas sobre los cursos y contenido general.",
+            "tag": "cursos",
+            "patterns": [
+                "¿Qué tipos de cursos ofrecen?",
+                "¿Puedo buscar cursos por categoría?",
+                "¿Dónde encuentro cursos gratuitos?",
+                "¿Qué hago si no encuentro un curso?",
+                "¿Los cursos tienen niveles de dificultad?",
+                "¿Cómo selecciono un curso?"
+            ],
+            "responses": [
+                "Ofrecemos cursos en distintas áreas. Usa la barra de búsqueda o explora las categorías para encontrar lo que necesitas."
+            ]
+        },
+        {
+            "_comment": "Preguntas sobre inscripción en cursos.",
+            "tag": "inscripcion_cursos",
+            "patterns": [
+                "¿Cómo me inscribo en un curso?",
+                "¿Es gratis inscribirse?",
+                "¿Qué pasos debo seguir para inscribirme?",
+                "¿Puedo inscribirme en varios cursos al mismo tiempo?",
+                "¿Hay límite de cursos para inscribirme?"
+            ],
+            "responses": [
+                "Selecciona un curso y haz clic en 'Inscribirme'. Algunos cursos son gratuitos y otros requieren pago."
+            ]
+        },
+        {
+            "_comment": "Preguntas sobre módulos y lecciones de cursos.",
+            "tag": "modulos_curso",
+            "patterns": [
+                "¿Qué son los módulos?",
+                "¿Cuántos módulos tiene un curso?",
+                "¿Qué incluyen los módulos?",
+                "¿Los módulos están disponibles sin conexión?",
+                "¿Cómo están organizados los módulos?"
+            ],
+            "responses": [
+                "Los módulos estructuran el contenido del curso e incluyen lecciones, actividades y evaluaciones."
+            ]
+        },
+        {
+            "_comment": "Preguntas sobre lecciones de un curso.",
+            "tag": "lecciones_curso",
+            "patterns": [
+                "¿Qué son las lecciones?",
+                "¿Las lecciones incluyen videos?",
+                "¿Puedo descargar las lecciones?",
+                "¿Cómo avanzo en las lecciones?",
+                "¿Puedo repetir una lección?"
+            ],
+            "responses": [
+                "Las lecciones son unidades pequeñas de aprendizaje que pueden incluir videos, lecturas y actividades. Puedes repetirlas y, en algunos casos, descargarlas."
+            ]
+        },
+        {
+            "_comment": "Preguntas sobre calificaciones y opiniones.",
+            "tag": "calificacion_curso",
+            "patterns": [
+                "¿Cómo califico un curso?",
+                "¿Dónde puedo calificar un curso?",
+                "¿Es obligatorio dejar una calificación?",
+                "¿Puedo cambiar mi calificación?",
+                "¿Qué incluye la calificación?"
+            ],
+            "responses": [
+                "Puedes calificar un curso desde la sección 'Mis cursos'. La calificación no es obligatoria pero ayuda a otros usuarios."
+            ]
+        },
+        {
+            "_comment": "Preguntas sobre reviews de un curso.",
+            "tag": "reviews_curso",
+            "patterns": [
+                "¿Dónde veo las reviews de un curso?",
+                "¿Las reviews son confiables?",
+                "¿Qué información incluyen las reviews?",
+                "¿Quién puede dejar una review?",
+                "¿Puedo responder a una review?"
+            ],
+            "responses": [
+                "Puedes leer las reviews en la página del curso. Solo quienes completaron el curso pueden escribirlas, por lo que son confiables."
+            ]
+        },
+        {
+            "_comment": "Preguntas sobre descarga de recursos.",
+            "tag": "descargar_recursos",
+            "patterns": [
+                "¿Cómo descargo recursos?",
+                "¿Qué materiales puedo descargar?",
+                "¿Puedo descargar los videos?",
+                "¿Los recursos están disponibles fuera de línea?",
+                "¿Los recursos se actualizan?"
+            ],
+            "responses": [
+                "Los recursos se pueden descargar desde la sección 'Materiales'. Esto incluye PDFs, guías y ejercicios, dependiendo del curso."
+            ]
+        },
+        {
+            "_comment": "Preguntas sobre gestión de perfil y datos.",
+            "tag": "gestion_usuario",
+            "patterns": [
+                "¿Cómo actualizo mi perfil?",
+                "¿Dónde cambio mi información personal?",
+                "¿Puedo cambiar mi foto de perfil?",
+                "¿Cómo cambio mi contraseña?",
+                "¿Dónde edito mis preferencias?"
+            ],
+            "responses": [
+                "Puedes editar tu perfil desde la sección 'Mi cuenta', donde encontrarás opciones para actualizar tu información y preferencias."
+            ]
+        },
+        {
+            "tag": "evaluaciones_y_pruebas",
+            "patterns": [
+              "¿Cómo son las evaluaciones en los cursos?",
+              "¿Puedo repetir una prueba si fallo?",
+              "¿Hay retroalimentación en las evaluaciones?"
+            ],
+            "responses": [
+              "Las evaluaciones pueden incluir cuestionarios, exámenes, o proyectos prácticos según el curso.",
+              "Sí, puedes repetir una prueba según las políticas del curso.",
+              "La mayoría de las evaluaciones ofrecen retroalimentación para ayudarte a mejorar."
+            ]
+          },
+          {
+            "tag": "interaccion_social_y_comunidad",
+            "patterns": [
+              "¿Puedo interactuar con otros estudiantes o instructores?",
+              "¿Hay foros de discusión o grupos?",
+              "¿Cómo reporto comportamientos inapropiados en la comunidad?"
+            ],
+            "responses": [
+              "Sí, puedes interactuar a través de foros y sesiones en vivo.",
+              "La plataforma tiene foros y grupos de discusión específicos por curso.",
+              "Para reportar comportamientos inapropiados, usa la opción de 'Reportar' disponible en cada interacción."
+            ]
+          },
+          {
+            "tag": "recomendaciones_personalizadas",
+            "patterns": [
+              "¿Cómo se me recomiendan cursos?",
+              "¿La plataforma sugiere cursos basados en mis intereses?"
+            ],
+            "responses": [
+              "Los cursos se recomiendan en función de tus preferencias, historial de aprendizaje y objetivos.",
+              "Sí, el sistema analiza tus intereses para sugerir contenido relevante."
+            ]
+          },
+          {
+            "tag": "aprendizaje_para_niños",
+            "patterns": [
+              "¿La plataforma tiene contenido educativo para niños?"
+            ],
+            "responses": [
+              "Sí, ofrecemos contenido adaptado para niños con temas interactivos y apropiados para su edad."
+            ]
+          },
+          {
+            "tag": "membresias_o_suscripciones",
+            "patterns": [
+              "¿Ofrecen membresías para acceder a múltiples cursos?",
+              "¿Qué beneficios tiene una suscripción?"
+            ],
+            "responses": [
+              "Sí, las membresías permiten acceso ilimitado a múltiples cursos durante el periodo de suscripción.",
+              "Con una suscripción, obtienes acceso exclusivo a contenido adicional y certificaciones."
+            ]
+          },
+          {
+            "tag": "colaboraciones_y_empresas",
+            "patterns": [
+              "¿Ofrecen planes para empresas o equipos de trabajo?",
+              "¿Se pueden personalizar los cursos para empresas?"
+            ],
+            "responses": [
+              "Sí, contamos con planes especializados para empresas y equipos de trabajo.",
+              "Podemos personalizar cursos según las necesidades específicas de una organización."
+            ]
+          },
+          {
+            "tag": "reembolsos_y_cancelaciones",
+            "patterns": [
+              "¿Cómo funcionan los reembolsos?",
+              "¿Cuánto tiempo toma recibir un reembolso?"
+            ],
+            "responses": [
+              "Los reembolsos pueden solicitarse dentro de un periodo establecido tras la compra.",
+              "El tiempo para recibir un reembolso depende del método de pago, generalmente entre 5 y 10 días hábiles."
+            ]
+          },
+          {
+            "tag": "seguridad_en_la_plataforma",
+            "patterns": [
+              "¿Cómo protegen mis datos financieros?",
+              "¿Qué medidas de seguridad tienen contra ataques informáticos?"
+            ],
+            "responses": [
+              "Tus datos financieros están protegidos con encriptación avanzada.",
+              "Implementamos medidas como monitoreo constante y firewalls para prevenir ataques informáticos."
+            ]
+          },
+          {
+            "tag": "gamificacion_y_recompensas",
+            "patterns": [
+              "¿Hay algún sistema de recompensas por completar cursos?",
+              "¿Puedo ganar insignias o puntos por mi progreso?"
+            ],
+            "responses": [
+              "Sí, puedes ganar recompensas como insignias al completar cursos y desafíos.",
+              "Nuestro sistema de puntos te motiva a seguir aprendiendo mientras alcanzas metas."
+            ]
+          },
+          {
+            "tag": "estadisticas_y_analisis",
+            "patterns": [
+              "¿Puedo ver estadísticas detalladas de mi progreso?",
+              "¿Cómo se mide mi nivel de comprensión en los cursos?"
+            ],
+            "responses": [
+              "Sí, puedes acceder a estadísticas detalladas sobre tu avance y tiempo invertido en los cursos.",
+              "El nivel de comprensión se evalúa mediante pruebas y retroalimentación del instructor."
+            ]
+          },
+          {
+            "tag": "proyectos_practicos_y_portafolios",
+            "patterns": [
+              "¿Los cursos incluyen proyectos prácticos?",
+              "¿Puedo construir un portafolio con los trabajos realizados en los cursos?"
+            ],
+            "responses": [
+              "Muchos cursos incluyen proyectos prácticos para aplicar lo aprendido.",
+              "Sí, puedes crear un portafolio con tus proyectos para mostrar tus habilidades."
+            ]
+          },
+          {
+            "tag": "sesiones_en_vivo",
+            "patterns": [
+              "¿Ofrecen sesiones en vivo o webinars?",
+              "¿Cómo me inscribo en eventos en vivo?"
+            ],
+            "responses": [
+              "Sí, ofrecemos sesiones en vivo y webinars para complementar los cursos.",
+              "Puedes inscribirte en eventos en vivo desde el calendario en la plataforma."
+            ]
+          },
+          {
+            "tag": "descuentos_y_becas",
+            "patterns": [
+              "¿Existen descuentos para estudiantes o grupos específicos?",
+              "¿Ofrecen becas para cursos pagados?"
+            ],
+            "responses": [
+              "Sí, ofrecemos descuentos para estudiantes, educadores y grupos.",
+              "Contamos con programas de becas para apoyar el acceso a cursos pagados."
+            ]
+          },
+          {
+            "tag": "migracion_y_datos",
+            "patterns": [
+              "¿Qué pasa si quiero migrar mis datos a otra plataforma?"
+            ],
+            "responses": [
+              "Si necesitas migrar tus datos de los cursos, ponte en contacto con soporte para asistencia."
+            ]
+          },
+          {
+            "tag": "novedades_y_actualizaciones",
+            "patterns": [
+              "¿Cómo me entero de nuevos cursos añadidos?",
+              "¿La plataforma tiene un apartado de novedades?"
+            ],
+            "responses": [
+              "Te notificamos sobre nuevos cursos a través del home y del apartado cursos en la seccion 'Nuevos' correo registrado."
+            ]
+          },
+          {
+            "tag": "publicacion_de_cursos",
+            "patterns": [
+              "¿Cómo publico un curso?",
+              "¿Qué pasos debo seguir para subir un curso?",
+              "¿Cómo envío un curso para aprobación?",
+              "¿Puedo publicar cursos fácilmente?",
+              "¿Cuál es el proceso para publicar mi curso?"
+            ],
+            "responses": [
+              "Para publicar un curso, utiliza el editor de cursos en tu panel y envíalo para revisión."
+            ]
+          },
+          {
+            "tag": "ingresos_y_pagos",
+            "patterns": [
+              "¿Cómo gano dinero en la plataforma?",
+              "¿Puedo recibir pagos por mis cursos?",
+              "¿Cómo se calculan mis ganancias?",
+              "¿Cuánto puedo ganar con un curso?",
+              "¿Qué ingresos genera la venta de cursos?"
+            ],
+            "responses": [
+              "Ganas dinero según el modelo de ingresos de la plataforma y las ventas de tus cursos."
+            ]
+          },
+          {
+            "tag": "promocion_de_cursos",
+            "patterns": [
+              "¿Cómo promociono mi curso?",
+              "¿Hay herramientas de marketing disponibles?",
+              "¿Puedo ofrecer descuentos en mis cursos?",
+              "¿Qué opciones tengo para promocionar mis cursos?",
+              "¿Cómo atraigo más estudiantes a mis cursos?"
+            ],
+            "responses": [
+              "La plataforma ofrece herramientas como cupones y correos promocionales para ayudar a promocionar tus cursos."
+            ]
+          },
+          {
+            "tag": "materiales_y_recursos",
+            "patterns": [
+              "¿Qué tipo de contenido puedo subir?",
+              "¿Puedo usar videos en mis cursos?",
+              "¿Qué formatos de archivos son aceptados?",
+              "¿Puedo incluir PDFs en mi curso?",
+              "¿Cómo agrego recursos a mi curso?"
+            ],
+            "responses": [
+              "Puedes incluir videos, documentos y otros recursos multimedia en tus cursos desde el editor."
+            ]
+          },
+          {
+            "tag": "interaccion_con_estudiantes",
+            "patterns": [
+              "¿Cómo hablo con mis estudiantes?",
+              "¿Puedo responder preguntas de los alumnos?",
+              "¿Cómo interactúo con quienes toman mis cursos?",
+              "¿Hay foros para comunicarme con los estudiantes?",
+              "¿Puedo organizar reuniones en vivo con mis estudiantes?"
+            ],
+            "responses": [
+              "Puedes interactuar con los estudiantes mediante foros de discusión, mensajería interna y sesiones en vivo."
+            ]
+          },
+          {
+            "tag": "soporte_a_instructores",
+            "patterns": [
+              "¿Qué hago si tengo problemas técnicos?",
+              "¿Dónde pido ayuda si tengo problemas con mi cuenta?",
+              "¿La plataforma ofrece soporte técnico para instructores?",
+              "¿Qué hago si no puedo subir mi curso?",
+              "¿Hay capacitación para crear mejores cursos?"
+            ],
+            "responses": [
+              "Para problemas técnicos o de cuenta, contacta al soporte técnico desde tu panel de instructor."
+            ]
+          },
+          {
+            "tag": "estadisticas_y_rendimiento",
+            "patterns": [
+              "¿Puedo ver estadísticas de mis cursos?",
+              "¿Qué información me muestra la plataforma sobre mis cursos?",
+              "¿Cómo sé si mi curso está funcionando bien?",
+              "¿Puedo medir el progreso de mis estudiantes?",
+              "¿Qué estadísticas están disponibles para los instructores?"
+            ],
+            "responses": [
+              "Puedes ver estadísticas sobre inscripciones, progreso de estudiantes y calificaciones desde tu panel."
+            ]
+          },
+          {
+            "tag": "politicas_y_acuerdos",
+            "patterns": [
+              "¿Qué políticas debo seguir como instructor?",
+              "¿Cuáles son las reglas para publicar un curso?",
+              "¿Dónde encuentro las políticas para instructores?",
+              "¿Qué pasa si rompo alguna regla de la plataforma?",
+              "¿Hay restricciones en el contenido que puedo subir?"
+            ],
+            "responses": [
+              "Debes cumplir con las políticas de contenido y comportamiento establecidas en los términos de la plataforma."
+            ]
+          },
+          {
+            "tag": "certificaciones_de_cursos",
+            "patterns": [
+              "¿Mis cursos otorgan certificados?",
+              "¿Puedo ofrecer certificados por completar mis cursos?",
+              "¿Cómo configuro certificaciones?",
+              "¿Hay certificados automáticos para los estudiantes?",
+              "¿Qué hago para que mi curso otorgue un certificado?"
+            ],
+            "responses": [
+              "Configura certificaciones automáticas para tus cursos desde la sección de ajustes en tu panel."
+            ]
+          }
+    ]
+}

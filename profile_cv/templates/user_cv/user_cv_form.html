@@ -1,0 +1,362 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}Customize Your CV Visibility{% endblock %}
+
+{% block content %}
+<section class="pt-90 pb-120 gray-bg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h3 class="card-title text-center mb-0">{{ view.action }} CV Configuration</h3>
+                    </div>
+                    <div class="card-body bg-light border-bottom">
+                        <div class="row align-items-center">
+                            <div class="col-md-3">
+                                <label class="font-weight-bold mb-0">CV URL:</label>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-link"></i>
+                                        </span>
+                                    </div>
+                                    {{ form.urlCV }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted text-center mb-4">Select which sections you want to display in your CV</p>
+
+                        <form method="post" class="needs-validation" novalidate>
+                            {% csrf_token %}
+
+                            <!-- Personal Information Section -->
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-user-circle mr-2"></i>Personal Information
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_img_profile.label_tag }}</strong>
+                                                {{ form.has_img_profile }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.img_profile.name }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_address.label_tag }}</strong>
+                                                {{ form.has_address }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.address }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_phone_1.label_tag }}</strong>
+                                                {{ form.has_phone_1 }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.phone_1 }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_phone_2.label_tag }}</strong>
+                                                {{ form.has_phone_2 }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.phone_2 }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_email_1.label_tag }}</strong>
+                                                {{ form.has_email_1 }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.email_1 }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_email_2.label_tag }}</strong>
+                                                {{ form.has_email_2 }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.email_2 }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Professional Profile Section -->
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-briefcase mr-2"></i>Professional Profile
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_biography.label_tag }}</strong>
+                                                {{ form.has_biography }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.biography }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_sector.label_tag }}</strong>
+                                                {{ form.has_sector }}
+                                            </div>
+                                            <div>
+                                                {% for sector in sectors %}
+                                                    <div>
+                                                        <input type="checkbox" name="sectors" value="{{ sector.id }}">
+                                                        <span>{{ sector.sector.name_sector }}</span>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_category.label_tag }}</strong>
+                                                {{ form.has_category }}
+                                            </div>
+                                            <div>
+                                                {% for category in categories %}
+                                                    <div>
+                                                        <input type="checkbox" name="categories" value="{{ category.id }}">
+                                                        <span>{{ category.category.name_category }}</span>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_open_to_work.label_tag }}</strong>
+                                                {{ form.has_open_to_work }}
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_incorporation.label_tag }}</strong>
+                                                {{ form.has_incorporation }}
+                                            </div>
+                                            <div>
+                                                {% for incorporation in incorporations %}
+                                                    <div>
+                                                        <input type="checkbox" name="incorporations" value="{{ incorporation.id }}">
+                                                        <span>{{ incorporation.incorporation.name_incorporation }}</span>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Skills & Experience Section -->
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-star mr-2"></i>Skills & Experience
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_work_experiences.label_tag }}</strong>
+                                                {{ form.has_work_experiences }}
+                                            </div>
+                                            <div>
+                                                {% for work_experience in work_experiences %}
+                                                    <div>
+                                                        <input type="checkbox" name="work_experiences" value="{{ work_experience.id }}">
+                                                        <span>{{ work_experience.job_title }} at {{ work_experience.company_name }}</span>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_hard_skills.label_tag }}</strong>
+                                                {{ form.has_hard_skills }}
+                                            </div>
+                                            <div>
+                                                {% for hard_skills in hard_skills %}
+                                                    <div>
+                                                        <input type="checkbox" name="hard_skills" value="{{ hard_skills.id }}">
+                                                        <span>{{ hard_skills.hard_skill.name_hard_skill }}</span>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_soft_skills.label_tag }}</strong>
+                                                {{ form.has_soft_skills }}
+                                            </div>
+                                            <div>
+                                                {% for soft_skills in soft_skills %}
+                                                    <div>
+                                                        <input type="checkbox" name="soft_skills" value="{{ soft_skills.id }}">
+                                                        <span>{{ soft_skills.soft_skill.name_soft_skill }}</span>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_languages.label_tag }}</strong>
+                                                {{ form.has_languages }}
+                                            </div>
+                                            <div>
+                                                {% for language in languages %}
+                                                    <div>
+                                                        <input type="checkbox" name="languages" value="{{ language.id }}">
+                                                        <span>{{ language.language.name_language }}</span>
+                                                    </div>
+                                                {% endfor %}
+                                            <div class="form-group">
+                                                <strong>{{ form.has_academic_educations.label_tag }}</strong>
+                                                {{ form.has_academic_educations }}
+                                            </div>
+                                            <div>
+                                                {% for academic_education in academic_educations %}
+                                                    <div>
+                                                        <input type="checkbox" name="academic_educations" value="{{ academic_education.id }}">
+                                                        <span>{{ academic_education.degree }} at {{ academic_education.institution_name }}</span>
+                                                    </div>
+                                                {% endfor %}
+                                            <div class="form-group">
+                                                <strong>{{ form.has_certifications_courses.label_tag }}</strong>
+                                                {{ form.has_certifications_courses }}
+                                            </div>
+                                            <div>
+                                                {% for course in courses %}
+                                                    <div>
+                                                        <input type="checkbox" name="course" value="{{ course.id }}">
+                                                        <span>{{ course.course.title }}</span>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Additional Information Section -->
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-plus-circle mr-2"></i>Additional Information
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_volunteerings.label_tag }}</strong>
+                                                {{ form.has_volunteerings }}
+                                            </div>
+                                            <div>
+                                                {% for volunteering in volunteerings %}
+                                                    <div>
+                                                        <input type="checkbox" name="volunteerings" value="{{ volunteering.id }}">
+                                                        <span>{{ volunteering.volunteering_position }}</span>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_projects.label_tag }}</strong>
+                                                {{ form.has_projects }}
+                                            </div>
+                                            <div>
+                                                {% for project in projects %}
+                                                    <input type="checkbox" name="projects" value="{{ project.id }}">
+                                                    <span>{{ project.link }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_publications.label_tag }}</strong>
+                                                {{ form.has_publications }}
+                                            </div>
+                                            <div>
+                                                {% for publication in publications %}
+                                                    <div>
+                                                        <input type="checkbox" name="publications" value="{{ publication.id }}">
+                                                        <span>{{ publication.doi }}</span>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_recognitions_awards.label_tag }}</strong>
+                                                {{ form.has_recognitions_awards }}
+                                            </div>
+                                            <div>
+                                                {% for recognition in recognitions_awards %}
+                                                    <div>
+                                                        <input type="checkbox" name="recognitions_awards" value="{{ recognition.id }}">
+                                                        <span>{{ recognition.name }}</span>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Other Details Section -->
+                            <div class="card mb-4">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-info-circle mr-2"></i>Other Details
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_vehicle.label_tag }}</strong>
+                                                {{ form.has_vehicle }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <strong>{{ form.has_disability.label_tag }}</strong>
+                                                {{ form.has_disability }}
+                                            </div>
+                                            <div class="form-group">
+                                                <strong>{{ form.has_disability_percentage.label_tag }}</strong>
+                                                {{ form.has_disability_percentage }}
+                                                <ul>
+                                                    <li style="list-style-type:circle">{{ profile_cv.disability_percentage }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Hidden Fields -->
+                            <div>
+                                Choose your template
+                                {{ form.template }}
+                            </div>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+                                <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Save</button>
+                                <a href="{% url 'user_cv_list' profile_cv.pk %}" class="btn btn-danger me-md-2 mr-2"><i class="fas fa-times"></i> Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

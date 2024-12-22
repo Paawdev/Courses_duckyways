@@ -1,0 +1,83 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Crear/Editar Oferta de Trabajo</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Título -->
+        <div class="form-group mb-3">
+            <label for="id_title" class="form-label">Título del Puesto</label>
+            <input type="text" class="form-control" id="id_title" name="title" placeholder="Ej. Desarrollador Backend" required>
+        </div>
+        
+        <!-- Descripción -->
+        <div class="form-group mb-3">
+            <label for="id_description" class="form-label">Descripción</label>
+            <textarea class="form-control" id="id_description" name="description" rows="4" placeholder="Describe los detalles del puesto aquí" required></textarea>
+        </div>
+        
+        <!-- Sector -->
+        <div class="form-group mb-3">
+            <label for="id_sector" class="form-label">Sector</label>
+            {{ form.sector }}  <!-- Aquí se renderiza el campo de sector -->
+        </div>
+        
+        <!-- Categoría -->
+        <div class="form-group mb-3">
+            <label for="id_category" class="form-label">Categoría</label>
+            {{ form.category }}  <!-- Aquí se renderiza el campo de categoría -->
+        </div>
+        
+        <!-- Salario -->
+        <div class="form-group mb-3">
+            <label for="id_salary" class="form-label">Salario</label>
+            <input type="number" step="0.01" class="form-control" id="id_salary" name="salary" placeholder="Ej. 50000">
+        </div>
+        
+        <!-- Ubicación -->
+        <div class="form-group mb-3">
+            <label for="id_location" class="form-label">Ubicación</label>
+            <input type="text" class="form-control" id="id_location" name="location" placeholder="Ej. Madrid, España">
+        </div>
+        
+        <!-- Fecha de cierre -->
+        <div class="form-group mb-3">
+            <label for="id_close_date" class="form-label">Fecha de Cierre</label>
+            <input type="date" class="form-control" id="id_close_date" name="close_date">
+        </div>
+        
+        <!-- Habilidades Técnicas Requeridas -->
+        <div class="form-group mb-3">
+          <label for="id_required_hard_skills" class="form-label">Habilidades Técnicas Requeridas</label>
+          {{ form.required_hard_skills }} <!-- Renderiza el campo de habilidades técnicas -->
+          <small class="form-text text-muted">Mantén presionado Ctrl (o Cmd en Mac) para seleccionar varias habilidades.</small>
+        </div>
+      
+        <!-- Habilidades Blandas Requeridas -->
+        <div class="form-group mb-3">
+          <label for="id_required_soft_skills" class="form-label">Habilidades Blandas Requeridas</label>
+          {{ form.required_soft_skills }} <!-- Renderiza el campo de habilidades blandas -->
+          <small class="form-text text-muted">Mantén presionado Ctrl (o Cmd en Mac) para seleccionar varias habilidades.</small>
+        </div>
+      
+
+        <!-- Experiencia requerida -->
+        <div class="form-group mb-3">
+            <label for="id_required_experience" class="form-label">Experiencia Requerida (en años)</label>
+            <input type="number" class="form-control" id="id_required_experience" name="required_experience" min="0" placeholder="Ej. 3">
+        </div>
+        <!-- Tests Relacionados -->
+        <div class="form-group mb-3">
+        <label for="id_job_offer_tests" class="form-label">Tests Relacionados</label>
+        {{ form.JobOfferTests }} <!-- Renderiza el campo de tests -->
+        
+
+        <!-- Botón de envío -->
+        <div class="form-group text-center mt-4">
+            <button type="submit" class="btn btn-success">Guardar Oferta</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

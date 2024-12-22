@@ -1,0 +1,20 @@
+<div class="saidbar">
+    <div class="saidbar-search mt-30">
+        <form method="get" action="{% url 'blog_list' %}">
+            <input type="text" name="q" placeholder="Search" value="{{ request.GET.q }}">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    <div class="categories mt-30">
+        <h4>Categories</h4>
+        <ul>
+            {% for category in categories %}
+            <li>
+                <a href="?category={{ category.id }}">
+                    {{ category.nameCategoryPost }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+{% extends "users/base.html" %}
+
+{% block content %}
+  <h1>{% if object %}Edit{% else %}Create{% endif %} Headhunter</h1>
+  
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="{{ form.user.id_for_label }}">Usuario</label>
+        {{ form.user }}
+        {% for error in form.user.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        <label for="{{ form.company.id_for_label }}">Nombre de la empresa</label>
+        {{ form.company }}
+        {% for error in form.company.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.phone.id_for_label }}">Teléfono</label>
+        {{ form.phone }}
+        {% for error in form.phone.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.position.id_for_label }}">Tu rango</label>
+        {{ form.position }}
+        <small class="form-text text-muted">{{ form.position.help_text }}</small>
+        {% for error in form.position.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.website.id_for_label }}">Sitio Web</label>
+        {{ form.website }}
+        {% for error in form.website.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.linkedin_profile.id_for_label }}">Perfil de Linkedin</label>
+        {{ form.linkedin_profile }}
+        {% for error in form.linkedin_profile.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.city.id_for_label }}">Ciudad</label>
+        {{ form.city }}
+        {% for error in form.city.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.country.id_for_label }}">Pais</label>
+        {{ form.country }}
+        {% for error in form.country.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.profile_photo.id_for_label }}">Foto de perfil</label>
+        {{ form.profile_photo }}
+        <small class="form-text text-muted">{{ form.profile_photo.help_text }}</small>
+        {% for error in form.profile_photo.errors %}
+            <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+  
+  <a href="{% url 'headhunter_list' %}">Cancelar</a>
+{% endblock %}

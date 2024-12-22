@@ -1,0 +1,20 @@
+{% extends "users/base.html" %}
+{% load static %}
+{% block title %}Deactivate Message{% endblock %}
+
+{% block content %}
+<div class="container">
+<h2>Deactivate Message</h2>
+<p>Are you sure you want to deactivate this message?</p>
+<p><strong>Subject:</strong> {{ message.subject }}</p>
+<p><strong>From:</strong> {{ message.sender.username }}</p>
+<p>{{ message.body }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Deactivate</button>
+    <a href="{% url 'inbox' %}" class="btn btn-secondary">Cancel</a>
+</form>
+
+</div>
+{% endblock %}

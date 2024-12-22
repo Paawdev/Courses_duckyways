@@ -1,0 +1,199 @@
+{% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title %}
+{% load static %}
+{% block content %}
+    <!--====== TEACHERS PART START ======-->
+    
+    <section id="teachers-singel" class="pt-70 pb-120 gray-bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-8">
+                    <div class="teachers-left mt-50">
+                        <div class="hero">
+                            {% if user_cv.has_img_profile %}
+                                <img src="{{ profile_cv.img_profile.url }}" alt="Teachers">
+                            {% else %}
+                                <img src="{% static 'images/teachers/t-1.jpg' %}" alt="Teachers">
+                            {% endif %}
+                        </div>
+                        <div class="name">
+                            <h6>{{ profile_cv.user.first_name }}</h6>
+                            <h6>{{ profile_cv.user.last_name }}</h6>
+                        </div>
+                        <div class="download-btn mt-20">
+                            <a href="{% url 'user_cv_pdf_view' user_cv.pk profile_cv.pk %}" class="main-btn">Download PDF</a>
+                        </div>
+                        <div class="social">
+                            <ul>
+                                {% if user_cv.has_phone_1 %}
+                                <li>{{ profile_cv.phone_1 }}</li>
+                                {% endif %}
+                                {% if user_cv.has_phone_2 %}
+                                <li>{{ profile_cv.phone_2 }}</li>
+                                {% endif %}
+                                {% if user_cv.has_email_1 %}
+                                <li>{{ profile_cv.email_1 }}</li>
+                                {% endif %}
+                                {% if user_cv.has_email_2 %}
+                                <li>{{ profile_cv.email_2 }}</li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="description" style="height: auto; text-align: left;">
+                            {% if user_cv.has_biography %}
+                            <p style="word-wrap: break-word;">{{ user_cv.biography }}</p>
+                            {% else %}
+                            <p style="word-wrap: break-word;">{{ profile_cv.biography }}</p>
+                            {% endif %}
+                        </div>
+                    </div> <!-- teachers left -->
+                </div>
+                <div class="col-lg-8">
+                    <div class="teachers-right mt-50">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                                <div class="dashboard-cont">
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_work_experiences %}
+                                        <h5>Work Experiences</h5>
+                                            <ul style="list-style-type: circle;">
+                                                {% for work_experience in work_experiences %}
+                                                    <li>{{ work_experience.job_title }}</li>
+                                                    <p>Start date: {{ work_experience.start_date }}</p>
+                                                    <p>End date: {{ work_experience.end_date }}</p>
+                                                    <p>Current job: {{ work_experience.current_job }}</p>
+                                                    <p>Company name: {{ work_experience.company_name }}</p>
+                                                    <p>Description: {{ work_experience.description }}</p>
+                                                    <p>Achievements: {{ work_experience.achievements }}</p>
+                                                    <p>References: {{ work_experience.references }}</p>
+                                                    <p>Hard skills: {{ work_experience.hard_skills }}</p>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_academic_educations %}
+                                        <h5>Academic Educations</h5>
+                                            <ul style="list-style-type: circle;">
+                                                {% for academic_education in academic_educations %}
+                                                    <li>{{ academic_education.title }}</li>
+                                                    <p>Academy name: {{ academic_education.academy_name }}</p>
+                                                    <p>Start date: {{ academic_education.start_date }}</p>
+                                                    <p>End date: {{ academic_education.end_date }}</p>
+                                                    <p>Current education: {{ academic_education.current_education }}</p>
+                                                    <p>References: {{ academic_education.references }}</p>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_hard_skills %}
+                                        <h5>Hard Skills</h5>
+                                            <ul style="list-style-type: circle;">
+                                                {% for hard_skill in hard_skills %}
+                                                    <li>{{ hard_skill.hard_skill.name_hard_skill }}</li>
+                                                    <p>Description: {{ hard_skill.description }}</p>
+                                                    <p>Level: {{ hard_skill.level_skill }}</p>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_soft_skills %}
+                                        <h5>Soft Skills</h5>
+                                            <ul style="list-style-type: circle;">
+                                                {% for soft_skill in soft_skills %}
+                                                    <li>{{ soft_skill.soft_skill.name_soft_skill }}</li>
+                                                    <p>Description: {{ soft_skill.description }}</p>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_languages %}
+                                        <h5>Languages</h5>
+                                            <ul style="list-style-type: circle;">
+                                                {% for language in languages %}
+                                                    <li>{{ language.language.name_language }}</li>
+                                                    <p>Level: {{ language.level.name_level }}</p>
+                                                    <p>Certifications: {{ language.certifications }}</p>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_volunteerings %}
+                                        <h5>Volunteerings</h5>
+                                            <ul style="list-style-type: circle;">
+                                                {% for volunteering in volunteerings %}
+                                                    <li>{{ volunteering.volunteering_position }}</li>
+                                                    <p>Start date: {{ volunteering.start_date }}</p>
+                                                    <p>End date: {{ volunteering.end_date }}</p>
+                                                    <p>Current volunteering: {{ volunteering.current_volunteering }}</p>
+                                                    <p>Entity name: {{ volunteering.entity_name }}</p>
+                                                    <p>Description: {{ volunteering.description }}</p>
+                                                    <p>Achievements: {{ volunteering.achievements }}</p>
+                                                    <p>References: {{ volunteering.references }}</p>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_projects %}
+                                        <h5>Projects</h5>
+                                            <ul style="list-style-type: circle;">
+                                                {% for project in projects %}
+                                                    <li>{{ project.name }}</li>
+                                                    <p>Description: {{ project.description }}</p>
+                                                    <p>Link: {{ project.link }}</p>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_publications %}
+                                        <h5>Publications</h5>
+                                            <ul style="list-style-type: circle;">
+                                                {% for publication in publications %}
+                                                    <li>{{ publication.name }}</li>
+                                                    <p>DOI: {{ publication.doi }}</p>
+                                                    <p>URL: {{ publication.url }}</p>
+                                                    <p>Role: {{ publication.role }}</p>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_recognitions_awards %}
+                                        <h5>Recognitions and Awards</h5>
+                                            <ul style="list-style-type: circle;">
+                                                {% for recognition_award in recognitions_awards %}
+                                                    <li>{{ recognition_award.name }}</li>
+                                                    <p>Entity: {{ recognition_award.entity }}</p>
+                                                    <p>Description: {{ recognition_award.description }}</p>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                    <div class="singel-dashboard pt-40">
+                                        {% if user_cv.has_certifications_courses %}
+                                        <h5>Certifications and Courses</h5>
+                                            <ul style="list-style-type: circle;">
+                                                {% for certification in profile_cv.certifications_courses.all %}
+                                                    <li>{{ certification.name }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div> <!-- singel dashboard -->
+                                </div> <!-- dashboard cont -->
+                            </div>
+                        </div> <!-- tab content -->
+                    </div> <!-- teachers right -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+
+    <!--====== EVENTS PART ENDS ======-->
+
+{% endblock content %}

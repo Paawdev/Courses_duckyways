@@ -1,0 +1,14 @@
+{% extends "users/base.html" %}
+
+{% block content %}
+<h2>{% if profile_teacher %}Actualizar perfil de profesor{% else %}Crear perfil de profesor{% endif %}</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Renderiza el formulario automáticamente -->
+    <button type="submit" class="btn btn-primary">{% if profile_teacher %}Actualizar{% else %}Crear{% endif %}</button>
+</form>
+
+<a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancelar</a>
+
+{% endblock %}

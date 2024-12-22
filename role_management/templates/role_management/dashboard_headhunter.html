@@ -1,0 +1,186 @@
+{% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title%}
+{% load static %}
+
+
+<!--====== HEADER PART ENDS ======-->
+{% block menu_util %}
+{% if user.is_authenticated %}
+<div class="header-top text-lg-right text-center ">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-lg-3">
+                <p class="text-warning">
+                    {% if user_duckycoins is not None %}
+                    <img style="width: 5%;height: 5%;" src="{% static 'images/ducky2.png' %}" alt="ducky">
+                    : <strong>{{ user_duckycoins }} DuckyCoins</strong>
+                    {% endif%}
+                </p>
+            </div>
+
+            <div class="col-lg-3">
+                <p class="text-warning">
+                    Welcome headhunter, {{ user.first_name|default:"Guest" }} {{ user.last_name|default:"  }}
+
+                </p>
+            </div>
+            <div class="col-lg-3 mt-1">
+                {% if user_duckycoins > -1 %}
+                <a href="{% url 'transaction_list' %}" class="position-relative text-decoration-none ms-3">
+                    <i class="bi bi-award fs-4 text-warning"></i>
+                    <span
+                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{ user_duckycoins }}
+                        <span class="visually-hidden">DuckyCoins</span>
+                    </span>
+                </a>
+                {%endif%}
+                <!-- </div>
+            <div class="col-lg-3"> -->
+                {% if unread_messages_count > 0 %}
+                <a href="{% url 'inbox' %}" class="position-relative text-decoration-none ms-3">
+                    <i class="bi bi-envelope-fill fs-4 text-warning"></i>
+                    <span
+                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{ unread_messages_count }}
+                        <span class="visually-hidden">unread messages</span>
+                    </span>
+                </a>
+                {%endif%}
+            </div>
+            <div class="col-lg-3 mt-1">
+
+
+                {% if user.is_authenticated %}
+                <!-- User Profile Image -->
+                <div class="dropdown float-end">
+                    <a href="/role"
+                        class="d-flex align-items-center justify-content-center link-warning text-decoration-none dropdown-toggle"
+                        id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if headhunter_profile.profile_foto %}
+                        <img class="thum-red" src="{{ headhunter_profile.profile_foto.url }}" alt="HeadHunter"
+                            style="border-radius: 50%; width: 50px; height: 50px;">
+
+                        {%else %}
+                        <i class="bi bi-person-bounding-box text-warning" style="font-size: 30px; "></i>
+                        {%endif%}
+                    </a>
+
+                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
+                        <li><a class="dropdown-item" href="/">Home</a></li>
+                        <li><a class="dropdown-item" href="#">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                        <li><a class="dropdown-item" href="/gaming/transactions">DuckyCoins</a></li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+
+
+                    </ul>
+
+                </div>
+                {% else %}
+                <div class="support-button float-end d-none d-md-block">
+                    <div class="button float-end">
+
+
+
+
+                        <a class="main-btn" href="{% url 'login' %}">Sign in</a>
+
+                    </div>
+                </div>
+                {%endif%}
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+{%endif%}
+{% endblock menu_util%}
+
+
+{% block navbar %}
+<div class="navigation">
+    <div class="container-fluid">
+        <div class="row mr-0 ml-4">
+            <div class="col-lg-8 col-md-4 col-sm-6 col-8">
+                
+                
+                <!-- Navbar -->
+                <nav class="navbar navbar-expand-lg navbar-light ">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">Duckyways</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <!-- <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                </li> -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Dashboard</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Ofertas
+                                    </a>
+                                    <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    </ul> -->
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/courses/courses">My profile</a>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/role/headhunter_chat">Chat</a>
+                                </li>
+                                
+                               
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                
+             
+                
+            </div>
+            {% block role_menu%}
+
+            <div class="col-lg-4 col-md-8 col-sm-6 col-4">
+                <!-- <div class="right-icon text-right"> -->
+                        <!-- Left links -->
+                    
+                        <!-- <li><a href="#" id="search"><i class="fa fa-search"></i></a></li> -->
+                        <ul class="d-flex flex-row justify-content-end align-items-end justify-content-end">
+
+                            <li class="nav-item bg-warning p-3">
+                                <a class="nav-link active d-flex flex-column text-center" aria-current="page"
+                                    href="/register"><i class="bi bi-journal-text"></i><span
+                                        class="small">Create Offer</span></a>
+                            </li>
+                            {%if user.is_authenticated%}
+                            <li class="nav-item bg-warning p-3">
+                                <a class="nav-link active d-flex flex-column text-center" aria-current="page"
+                                    href="/role"><i class="bi bi-send-plus"></i><span
+                                        class="small">Send Chat</span></a>
+                            </li>
+                            {%endif%}
+                            </ul>
+
+                        
+                    
+                    <!-- </div> -->
+            </div>
+            {%endblock role_menu %}
+
+        </div> <!-- row -->
+    </div> <!-- container -->
+</div>
+{%endblock navbar  %}

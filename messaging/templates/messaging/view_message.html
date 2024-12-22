@@ -1,0 +1,28 @@
+{% extends "users/base.html" %}
+{% load static %}
+{% block title %}View Message{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Message Details</h2>
+    <p><strong>From:</strong> {{ message.sender.username }}</p>
+    <p><strong>To:</strong> {{ message.recipient.username }}</p>
+    <p><strong>Subject:</strong> {{ message.subject }}</p>
+    <p><strong>Date:</strong> {{ message.timestamp }}</p>
+    <hr>
+    <p>{{ message.body }}</p>
+    
+    <h3>Reply</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="response_body" class="form-label">Your Response</label>
+            <textarea class="form-control" id="response_body" name="response_body" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Reply</button>
+    </form>
+    
+    <a href="{% url 'inbox' %}" class="btn btn-secondary mt-3">Back to Inbox</a>
+</div>
+{% endblock %}
+

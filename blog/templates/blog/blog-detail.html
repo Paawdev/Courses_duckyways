@@ -1,0 +1,59 @@
+{% extends "users/base.html" %}
+{% block title %} {{ post.title }} {% endblock title %}
+{% load static %}
+{% block content %}
+
+<!-- Blog Detail -->
+<section id="blog-singel" class="pt-90 pb-120 gray-bg">
+    <div class="container">
+        <div class="row">
+            <!-- Blog Content -->
+            <div class="col-lg-8">
+                <div class="blog-details mt-30">
+                    <div class="thum">
+                        {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="{{ post.title }} image" style="max-width: 100%; height: auto;">
+                        {% endif %}
+                    </div>
+                    <div class="cont">
+                        <h3>{{ post.title }}</h3>
+                        <ul>
+                            <li><i class="fa fa-calendar"></i> {{ post.created_on|date:"F j, Y" }}</li>
+                            <li><i class="fa fa-user"></i> {{ post.author }}</li>
+                            {% if post.category_post %}
+                            <li><i class="fa fa-tags"></i> {{ post.category_post.nameCategoryPost }}</li>
+                            {% endif %}
+                            <li><i class="fa fa-heart"></i> {{ post.likes }}</li>
+                        </ul>
+                        <p>{{ post.content|safe }}</p>
+                        <ul class="share">
+                            <li class="title">Compartir :</li>
+                            <li>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+                                    <i class="fa fa-facebook-f"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ post.title }}">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/shareArticle?url={{ request.build_absolute_uri }}">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div> <!-- cont -->
+                </div> <!-- blog details -->
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                {% include "blog/sidebar.html" %}
+            </div>
+        </div> <!-- row -->
+    </div> <!-- container -->
+</section>
+
+{% endblock %}

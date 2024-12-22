@@ -1,0 +1,143 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="card mb-4">
+        <div class="card-body d-flex justify-content-between align-items-center py-3">
+            <div>
+                <h5 class="mb-0">Work Experiences</h5>
+                <small class="text-muted">Manage your work experiences</small>
+            </div>
+            <a href="{% url 'work_experience_create' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add Work Experience
+            </a>
+        </div>
+    </div>
+
+    <!-- List -->
+    <div class="card">
+        <div class="card-body p-0">
+            <!-- Table -->
+            {% if work_experiences %}
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Current Job</th>
+                            <th>Company Name</th>
+                            <th>Description</th>
+                            <th>Achievements</th>
+                            <th>References</th>
+                            <th class="text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for work_experience in work_experiences %}
+                        <tr>
+                            <td>{{ work_experience.job_title }}</td>
+                            <td>{{ work_experience.start_date }}</td>
+                            <td>{{ work_experience.end_date }}</td>
+                            <td>{{ work_experience.current_job }}</td>
+                            <td>{{ work_experience.company_name }}</td>
+                            <td>{{ work_experience.description }}</td>
+                            <td>{{ work_experience.achievements }}</td>
+                            <td>{{ work_experience.references }}</td>
+                            <td class="text-right">
+                                <div class="btn-group">
+                                    <a href="{% url 'work_experience_update' work_experience.id %}"
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-danger"
+                                            data-toggle="modal"
+                                            data-target="#deleteModal{{ work_experience.id }}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Delete Modal for each work experience -->
+                        <div class="modal fade" id="deleteModal{{ work_experience.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ work_experience.id }}" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel{{ work_experience.id }}">Confirm Delete Work Experience</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete the work experience <strong>"{{ work_experience.job_title }}"</strong>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <form method="post" action="{% url 'work_experience_delete' work_experience.id %}" class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger">Yes, delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <!-- Empty State -->
+            <div class="text-center py-5">
+                <div class="mb-3">
+                    <i class="fas fa-briefcase fa-3x text-muted"></i>
+                </div>
+                <h6 class="text-muted">No work experience records found</h6>
+                <p class="text-muted mb-3">Add your first work experience record</p>
+                <a href="{% url 'work_experience_create' %}" class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i>Add Work Experience
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .table th {
+        font-weight: 600;
+        color: #444;
+    }
+   
+    .table td {
+        vertical-align: middle;
+    }
+
+    .btn-group .btn {
+        padding: .25rem .5rem;
+    }
+
+    .btn-group .btn:focus {
+        box-shadow: none;
+    }
+
+    .badge {
+        padding: 0.5em 0.75em;
+    }
+
+    .modal-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .modal-footer {
+        background-color: #f8f9fa;
+        border-top: 1px solid #dee2e6;
+    }
+</style>
+{% endblock %}

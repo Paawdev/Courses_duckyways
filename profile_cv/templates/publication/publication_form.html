@@ -1,0 +1,117 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h3 class="mb-0">Add Publication</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        {{ form.profile_user }}
+                        
+                        <!-- Publication Name/Title -->
+                        <div class="mb-4">
+                            <label for="{{ form.name.id_for_label }}" class="form-label">Publication Title</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.name.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Role -->
+                        <div class="mb-4">
+                            <label for="{{ form.role.id_for_label }}" class="form-label">Your Role</label>
+                            {{ form.role }}
+                            {% if form.role.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.role.errors }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">Specify your role in this publication (e.g., Author, Co-author)</div>
+                        </div>
+
+                        <!-- DOI -->
+                        <div class="mb-4">
+                            <label for="{{ form.doi.id_for_label }}" class="form-label">DOI (Digital Object Identifier)</label>
+                            {{ form.doi }}
+                            {% if form.doi.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.doi.errors }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">Enter the DOI of your publication (e.g., 10.1000/xyz123)</div>
+                        </div>
+
+                        <!-- URL -->
+                        <div class="mb-4">
+                            <label for="{{ form.url.id_for_label }}" class="form-label">Publication URL</label>
+                            {{ form.url }}
+                            {% if form.url.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.url.errors }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">Link to where the publication can be accessed online</div>
+                        </div>
+
+                        <!-- Form Buttons -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+                            <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Save</button>
+                            <a href="{% url 'publication_list' %}" class="btn btn-danger me-md-2 mr-2"><i class="fas fa-times"></i> Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Form styles */
+    .form-label {
+        font-weight: 500;
+    }
+    
+    .form-control {
+        padding: 0.75rem;
+        border-radius: 4px;
+        border: 1px solid #ced4da;
+    }
+    
+    /* Helper text */
+    .form-text {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-top: 4px;
+    }
+    
+    /* Buttons */
+    .main-btn {
+        padding: 8px 24px;
+        font-weight: 500;
+    }
+    
+    .btn-outline-secondary {
+        padding: 8px 24px;
+        font-weight: 500;
+    }
+    
+    /* Error states */
+    .invalid-feedback {
+        font-size: 0.875rem;
+    }
+
+    /* Input focus states */
+    .form-control:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+</style>
+{% endblock %}

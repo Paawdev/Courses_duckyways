@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}User Certification List{% endblock %}
+{% block content %}
+<h1>Certification</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Course</th>
+            <th>Status</th>
+            <th>Start date</th>
+            <th>Certification date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for usercertificate in usercertificates %}
+        <tr>
+            <td>{{ usercertificate.user_course.user.first_name }}</td>
+            <td>{{ usercertificate.user_course.course.title }}</td>
+            <td>{{ usercerticicate.user_course.status.status }}</td>
+            <td>{{ usercertificate.certification_date }}</td>
+            <td>
+                <a class="btn btn-warning" href="{% url 'certification-update' usercertification.pk %}">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

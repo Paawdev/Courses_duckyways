@@ -1,0 +1,143 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}My CVs{% endblock %}
+
+{% block content %}
+<section class="pt-90 pb-120 gray-bg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h3 class="card-title mb-0">
+                            <i class="fas fa-file-alt mr-2"></i>My CVs
+                        </h3>
+                        {% if request.user.is_authenticated and request.user.profile %}
+                        <a href="{% url 'user_cv_create' request.user.profile.id %}" class="btn btn-primary">
+                            <i class="fas fa-plus mr-2"></i>Create New CV
+                        </a>
+                        {% endif %}
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            {% for user_cv in user_cv %}
+                            <div class="col-lg-6 mb-4">
+                                <div class="card h-100 shadow-sm">
+                                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-user mr-2"></i>CV #{{ forloop.counter }}
+                                        </h5>
+                                        <span class="badge {% if user_cv.has_open_to_work %}badge-success{% else %}badge-secondary{% endif %}">
+                                            {% if user_cv.has_open_to_work %}Open to Work{% else %}Not Available{% endif %}
+                                        </span>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Personal Information -->
+                                        <div class="mb-4">
+                                            <h6 class="text-muted mb-3">Personal Information</h6>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="mb-2">
+                                                        <i class="fas fa-envelope mr-2 text-primary"></i>
+                                                        Email: {{ user_cv.has_email_1|yesno:"Visible,Hidden" }}
+                                                    </p>
+                                                    <p class="mb-2">
+                                                        <i class="fas fa-phone mr-2 text-primary"></i>
+                                                        Phone: {{ user_cv.has_phone_1|yesno:"Visible,Hidden" }}
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="mb-2">
+                                                        <i class="fas fa-map-marker-alt mr-2 text-primary"></i>
+                                                        Address: {{ user_cv.has_address|yesno:"Visible,Hidden" }}
+                                                    </p>
+                                                    <p class="mb-2">
+                                                        <i class="fas fa-id-card mr-2 text-primary"></i>
+                                                        DNI: {{ user_cv.has_dni|yesno:"Visible,Hidden" }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Professional Details -->
+                                        <div class="mb-4">
+                                            <h6 class="text-muted mb-3">Professional Details</h6>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="mb-2">
+                                                        <i class="fas fa-briefcase mr-2 text-primary"></i>
+                                                        Work Experience: {{ user_cv.has_work_experiences|yesno:"Visible,Hidden" }}
+                                                    </p>
+                                                    <p class="mb-2">
+                                                        <i class="fas fa-graduation-cap mr-2 text-primary"></i>
+                                                        Education: {{ user_cv.has_academic_educations|yesno:"Visible,Hidden" }}
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="mb-2">
+                                                        <i class="fas fa-tools mr-2 text-primary"></i>
+                                                        Skills: {{ user_cv.has_hard_skills|yesno:"Visible,Hidden" }}
+                                                    </p>
+                                                    <p class="mb-2">
+                                                        <i class="fas fa-language mr-2 text-primary"></i>
+                                                        Languages: {{ user_cv.has_languages|yesno:"Visible,Hidden" }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Actions -->
+                                        <div class="mt-4 text-center">
+                                            <a href="{% url 'user_cv_view_details' user_cv.id user_cv.profile_user.id %}" class="btn btn-primary">
+                                                <i class="fas fa-eye mr-2"></i>View CV
+                                            </a>
+                                            <a href="{% url 'user_cv_update' user_cv.pk %}" class="btn btn-warning mx-2">
+                                                <i class="fas fa-edit mr-2"></i>Edit
+                                            </a>
+                                            <a href="{% url 'user_cv_delete' user_cv.pk %}" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ user_cv.id }}">
+                                                <i class="fas fa-trash mr-2"></i>Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-light">
+                                        <small class="text-muted">
+                                            <i class="fas fa-paint-brush mr-2"></i>Template: {{ user_cv.template }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Delete Modal for each user_cv -->
+                            <div class="modal fade" id="deleteModal{{ user_cv.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ user_cv.id }}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel{{ user_cv.id }}">Confirm Delete CV</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to delete the CV <strong>#{{ forloop.counter }}</strong>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <form method="post" action="{% url 'user_cv_delete' user_cv.id %}" class="d-inline">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger">Yes, delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% empty %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

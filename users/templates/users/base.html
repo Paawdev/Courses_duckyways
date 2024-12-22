@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+    
+
+    <!--====== Required meta tags ======-->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--====== Title ======-->
+    <title>DuckyWays</title>
+
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/png">
+
+    <!--====== Slick css ======-->
+    <!-- <link rel="stylesheet" href="css/slick.css"> -->
+    <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+
+    <!--====== Animate css ======-->
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+
+    <!--====== Nice Select css ======-->
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+
+    <!--====== Nice Number css ======-->
+    <link rel="stylesheet" href="{% static 'css/jquery.nice-number.min.css' %}">
+
+    <!--====== Magnific Popup css ======-->
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+
+    <!--====== Bootstrap css ======-->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> -->
+
+    <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> -->
+
+    <!--====== Fontawesome css ======-->
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+
+    <!--====== Default css ======-->
+    <link rel="stylesheet" href="{% static 'css/default.css'%}">
+
+   
+
+    <!--====== Responsive css ======-->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+    <!--====== awesome css ======-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+ <!--====== Style css ======-->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=1.0">
+</head>
+
+<body>
+
+    <!--====== PRELOADER PART START ======-->
+
+    <!-- <div class="preloader">
+        <div class="loader rubix-cube">
+            <div class="layer layer-1"></div>
+            <div class="layer layer-2"></div>
+            <div class="layer layer-3 color-1"></div>
+            <div class="layer layer-4"></div>
+            <div class="layer layer-5"></div>
+            <div class="layer layer-6"></div>
+            <div class="layer layer-7"></div>
+            <div class="layer layer-8"></div>
+        </div>
+    </div> -->
+
+    <!--====== PRELOADER PART START ======-->
+    <!--====== SEARCH BOX PART START ======-->
+
+    <div class="search-box">
+        <div class="serach-form">
+            <div class="closebtn">
+                <span></span>
+                <span></span>
+            </div>
+            <form action="#">
+                <input type="text" placeholder="Search by keyword">
+                <button><i class="fa fa-search"></i></button>
+            </form>
+        </div> <!-- serach form -->
+    </div>
+
+    <!--====== SEARCH BOX PART ENDS ======-->
+
+    <!--====== HEADER PART START ======-->
+
+    <header id="header-part">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+            <!-- Container wrapper -->
+            <div class="container">
+
+                <div class="container mt-4">
+                    <div class="row">
+                        <div class="col-2"> <!-- Navbar brand -->
+                            <div class="logo">
+                                <a href="/">
+                                    <img src="{% static 'images/logo.png' %}" alt="Logo">
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                        <div class="col-6">
+                            <div class="support-button float-end d-none d-md-block">
+                                <div class="support float-end">
+                                    <div class="icon">
+                                        <img src="{% static 'images/all-icon/support.png' %}" alt="icon">
+                                    </div>
+                                    <div class="cont">
+                                        <p>Need Help? call us free</p>
+                                        <span>321 325 5678</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            {% if not user.is_authenticated %}
+                            <div class="support-button float-end d-none d-md-block">
+                                <div class="button float-end">
+
+
+
+
+                                    <a class="main-btn" href="{% url 'login' %}">Sign in</a>
+
+                                </div>
+                            </div>
+                            {% endif%}
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+            
+            <!-- Container wrapper -->
+        </nav>
+        <!-- Navbar -->
+
+        {%block menu_util%}
+        {%endblock menu_util%}
+
+
+
+
+
+
+
+    </header>
+    {% block navbar %}
+    {% endblock navbar %}
+    {% block content %}
+    {% endblock content %}
+
+
+    <!--====== FOOTER PART START ======-->
+
+    <footer id="footer-part">
+        <div class="footer-top pt-40 pb-70">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-about mt-40">
+                            <div class="logo">
+                                <a href="#"><img src="{% static 'images/logo-2.png' %}" alt="Logo"></a>
+                            </div>
+                            <p>Gravida nibh vel velit auctor aliquetn quibibendum auci elit cons equat ipsutis sem nibh
+                                id elit. Duis sed odio sit amet nibh vulputate.</p>
+                            <ul class="mt-20">
+                                <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                        </div> <!-- footer about -->
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="footer-link mt-40">
+                            <div class="footer-title pb-25">
+                                <h6>Sitemap</h6>
+                            </div>
+                            <ul>
+                                <li><a href="index-2.html"><i class="fa fa-angle-right"></i>Home</a></li>
+                                <li><a href="about.html"><i class="fa fa-angle-right"></i>About us</a></li>
+                                <li><a href="courses.html"><i class="fa fa-angle-right"></i>Courses</a></li>
+                                <li><a href="blog.html"><i class="fa fa-angle-right"></i>News</a></li>
+                                <li><a href="events.html"><i class="fa fa-angle-right"></i>Event</a></li>
+                            </ul>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Gallery</a></li>
+                                <li><a href="shop.html"><i class="fa fa-angle-right"></i>Shop</a></li>
+                                <li><a href="teachers.html"><i class="fa fa-angle-right"></i>Teachers</a></li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Support</a></li>
+                                <li><a href="contact.html"><i class="fa fa-angle-right"></i>Contact</a></li>
+                            </ul>
+                        </div> <!-- footer link -->
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6">
+                        <div class="footer-link support mt-40">
+                            <div class="footer-title pb-25">
+                                <h6>Support</h6>
+                            </div>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>FAQS</a></li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Privacy</a></li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Policy</a></li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Support</a></li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i>Documentation</a></li>
+                            </ul>
+                        </div> <!-- support -->
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-address mt-40">
+                            <div class="footer-title pb-25">
+                                <h6>Contact Us</h6>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="icon">
+                                        <i class="fa fa-home"></i>
+                                    </div>
+                                    <div class="cont">
+                                        <p>143 castle road 517 district, kiyev port south Canada</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                    <div class="cont">
+                                        <p>+3 123 456 789</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <i class="fa fa-envelope-o"></i>
+                                    </div>
+                                    <div class="cont">
+                                        <p>info@yourmail.com</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div> <!-- footer address -->
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </div> <!-- footer top -->
+
+        <div class="footer-copyright pt-10 pb-25">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="copyright text-md-left text-center pt-15">
+                            <p>Made with <span style="color: brown;">&#10084;</span> in Barcelona by <a target="_blank"
+                                    href="https://www.mihifidem.net"> Mihifidem</a> & <a target="_blank"
+                                    href="#">IA01/2024</a></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="copyright text-md-right text-center pt-15">
+
+                        </div>
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </div> <!-- footer copyright -->
+    </footer>
+
+    <!--====== FOOTER PART ENDS ======-->
+
+    <!--====== BACK TO TP PART START ======-->
+
+    <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+    <!--====== BACK TO TP PART ENDS ======-->
+
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+
+{% load static %}
+
+    <!--====== jquery js ======-->
+    <script src="{% static 'js/vendor/modernizr-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+    
+    <!--====== Bootstrap js ======-->
+    <!-- <script src="{% static 'js/vendor/bootstrap-5.3.3-dist/js/bootstrap.min.js' %}"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!--====== Slick js ======-->
+    <script src="{% static 'js/slick.min.js' %}"></script>
+
+    <!--====== Magnific Popup js ======-->
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+
+    <!--====== Counter Up js ======-->
+    <script src="{% static 'js/waypoints.min.js' %}"></script>
+    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+
+    <!--====== Nice Select js ======-->
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+
+    <!--====== Nice Number js ======-->
+    <script src="{% static 'js/jquery.nice-number.min.js' %}"></script>
+
+    <!--====== Count Down js ======-->
+    <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+
+
+
+    <!-- A plugin for password show/hide  -->
+    <!-- <script src="https://unpkg.com/bootstrap-show-password@1.2.1/dist/bootstrap-show-password.min.js"></script> -->
+
+    <!--====== Validator js ======-->
+    <script src="{% static 'js/validator.min.js' %}"></script>
+
+    <!--====== Ajax Contact js ======-->
+    <script src="{% static 'js/ajax-contact.js' %}"></script>
+
+    <!--====== Main js ======-->
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <!--====== Map js ======-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC3Ip9iVC0nIxC6V14CKLQ1HZNF_65qEQ"></script>
+    <script src="{% static 'js/map-script.js' %}"></script>
+
+</body>
+
+</html>

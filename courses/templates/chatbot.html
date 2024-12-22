@@ -1,0 +1,203 @@
+{% extends "courses/courses_list.html" %}
+{% block title %} Home Page {% endblock title%}
+{% block chatbot %}
+<footer>
+    <style>
+        .robot {
+            position: fixed;
+            top: 10%;
+            right: 60px;
+            z-index: 1000;
+        }
+        
+        .main-card.collapsed {
+            display: block;
+        }
+        
+        #chatbot-toggle {
+            background-color: #ffeb3b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        
+        #chatbot-popup {
+            display: none;
+            background-color: #ffeb3b;
+            border-radius: 15px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        #chatbot-header {
+            position: relative;
+        }
+        
+        #chatbot-header h3 {
+            margin: 0;
+            font-family: 'Comic Sans MS', sans-serif;
+            color: #333;
+        }
+        
+        #close-chatbot {
+            background-color: #ffd54f;
+            border: 2px solid #ffcc00;
+            color: #333;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            line-height: 36px;
+            text-align: center;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        
+        #close-chatbot:hover {
+            background-color: #ffcc80;
+            transform: scale(1.1);
+            color: #000;
+        }
+        
+        #chatbot-input {
+            width: calc(100% - 50px);
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+        
+        #chatbot-form button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 10px;
+            background-color: #ff9800;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        #chatbot-messages {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+    </style>
+
+    <!-- Chatbot UI -->
+    <div class="robot">
+        <div id="chatbot-container" class="main-card collapsed">
+            <!-- Toggle button -->
+            <button id="chatbot-toggle" onclick="toggleChatbot()">
+                <img src="/static/images/chatbot.png" alt="Chatbot Toggle" />
+            </button>
+
+            <!-- Chatbot Popup -->
+            <div id="chatbot-popup" style="display: none;">
+                <div id="chatbot-header">
+                    <h3>Duckbot</h3>
+                    <!-- Close button inside the popup -->
+                    <button id="close-chatbot" onclick="toggleChatbot()">&times;</button>
+                </div>
+                <div class="chatbot-messages" id="chatbot-messages"></div>
+                <div id="chatbot-form">
+                    <input type="text" id="user-input" class="form-control" placeholder="Type your message..." required />
+                    <button class="btn btn-primary" id="send-button">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="chat-container">
+        <div class="chat-header">
+            Chatbot
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="user-input" class="form-control" placeholder="Escribe tu mensaje...">
+            <button class="btn btn-primary" id="send-button">Enviar</button>
+        </div>
+    </div> -->
+    <script>
+        // Chatbot Script
+        function toggleChatbot() {
+            const popup = document.getElementById("chatbot-popup");
+            const toggleButton = document.getElementById("chatbot-toggle");
+        
+            if (popup.style.display === "none" || popup.style.display === "") {
+                popup.style.display = "block";
+                toggleButton.style.display = "none";
+            } else {
+                popup.style.display = "none";
+                toggleButton.style.display = "block";
+            }
+        }
+
+        // Referencias a elementos del DOM
+        const chatMessages = document.getElementById('chatbot-messages');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+
+        // Función para agregar un mensaje al chat
+        function addMessage(content, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', sender);
+            const messageContent = document.createElement('div');
+            messageContent.classList.add('content');
+            messageContent.textContent = content;
+            messageDiv.appendChild(messageContent);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll automático
+        }
+
+        // Enviar mensaje al servidor
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === '') return;
+
+            // Agregar mensaje del usuario al chat
+            addMessage(message, 'user');
+            userInput.value = ''; // Limpiar input
+
+            // Enviar el mensaje al backend (AJAX)
+            fetch('courses/chatbot/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': '{{ csrf_token }}' // Incluye CSRF
+                },
+                body: new URLSearchParams({ 'message': message })
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Error en la respuesta del servidor');
+                return response.json();
+            })
+            .then(data => {
+                addMessage(data.response || 'Sin respuesta.', 'bot');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                addMessage('Lo siento, hubo un error al procesar tu mensaje.', 'bot');
+            });
+        }
+
+        // Event listener para enviar el mensaje con el botón
+        sendButton.addEventListener('click', sendMessage);
+
+        // Event listener para enviar el mensaje con la tecla Enter
+        userInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</footer>
+{% endblock %}

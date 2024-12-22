@@ -1,0 +1,17 @@
+{% extends 'users/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h1>Forum Topics</h1>
+    <a href="{% url 'create_topic' %}" class="btn btn-primary mb-3">Create New Topic</a>
+    <ul class="list-group">
+        {% if topics%}
+        {% for topic in topics %}
+        <li class="list-group-item">
+            <a href="{% url 'topic_detail' topic.pk %}">{{ topic.title }}</a>
+            <small class="text-muted">by {{ topic.creator }}</small>
+        </li>
+        {% endfor %}
+        {%endif%}
+    </ul>
+</div>
+{% endblock %}

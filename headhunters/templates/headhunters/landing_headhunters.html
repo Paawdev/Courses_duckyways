@@ -1,0 +1,137 @@
+{% extends "users/base.html" %}
+{% load static %}  <!-- Cargar el tag static aquí -->
+
+{% block content %}
+  <div class="container mt-4">
+      <h1>Candidates</h1>
+
+      <!-- Filtros -->
+    <style>
+        .form-control,
+        .form-select {
+            height: calc(2.5rem); /* Asegura la misma altura para inputs y selects */
+        }
+        
+    </style>
+    
+    <form method="get" class="mb-4 p-3 bg-light rounded shadow-sm headhuntersfiltersform">
+        <div class="row gy-3">
+            <div class="col-md-4 col-sm-12">
+                <label for="location" class="form-label text-primary fw-bold">Ubicación:</label>
+                <input type="text" name="location" id="location" class="form-control border-primary rounded-pill" placeholder="Ej. Barcelona" value="{{ request.GET.location }}">
+            </div>
+            <div class="col-md-4 col-sm-12 d-flex align-items-center">
+                <label for="open_to_work" class="form-label text-primary fw-bold">Disponibilidad para trabajar:</label>
+                <select name="open_to_work" id="open_to_work" class="form-select border-primary rounded-pill">
+                    <option value="" {% if request.GET.open_to_work == "" %}selected{% endif %}>Todos</option>
+                    <option value="true" {% if request.GET.open_to_work == "true" %}selected{% endif %}>Sí</option>
+                    <option value="false" {% if request.GET.open_to_work == "false" %}selected{% endif %}>No</option>
+                </select>
+            </div>
+            <div class="col-md-4 col-sm-12 d-flex align-items-center">
+                <label for="vehicle" class="form-label text-primary fw-bold">Vehículo disponible:</label>
+                <select name="vehicle" id="vehicle" class="form-select border-primary rounded-pill">
+                    <option value="" {% if request.GET.vehicle == "" %}selected{% endif %}>Todos</option>
+                    <option value="true" {% if request.GET.vehicle == "true" %}selected{% endif %}>Sí</option>
+                    <option value="false" {% if request.GET.vehicle == "false" %}selected{% endif %}>No</option>
+                </select>
+            </div>
+        </div>
+        <div class="row g-3 mt-3">
+            <div class="col-md-4 col-sm-12 d-flex align-items-center">
+                <label for="disability" class="form-label text-primary fw-bold">Discapacidad:</label>
+                <select name="disability" id="disability" class="form-select border-primary rounded-pill">
+                    <option value="" {% if request.GET.disability == "" %}selected{% endif %}>Todos</option>
+                    <option value="true" {% if request.GET.disability == "true" %}selected{% endif %}>Sí</option>
+                    <option value="false" {% if request.GET.disability == "false" %}selected{% endif %}>No</option>
+                </select>
+            </div>
+            
+            <div class="col-md-4 col-sm-12">
+                <label for="disability_percentage" class="form-label text-primary fw-bold">Porcentaje de discapacidad:</label>
+                <div class="input-group">
+                    <input type="number" name="disability_percentage" id="disability_percentage" 
+                           class="form-control border-primary rounded-pill" 
+                           placeholder="Ej. 20" min="0" max="100" step="-1"
+                           value="{{ request.GET.disability_percentage }}">
+                    <span class="input-group-text">%</span>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary rounded-pill w-100">Aplicar filtros</button>
+            </div>
+        </div>
+    </form>
+        
+
+      <!-- Lista de candidatos con checkboxes -->
+      <form method="post" action="{% url 'manage_candidates' %}">
+          {% csrf_token %}
+          <div class="row">
+              {% for candidate in candidates %}
+                  <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                      <div class="card">
+                          <div class="card-body">
+                              <!-- Foto del candidato -->
+                              {% if candidate.img_1_profile %}
+                              <!-- TENGO QUE VER DE DONDE SACAR LA IMG del USER 0 QUE AUN NO ESTA
+                               Y NO ME ENCUENTRA LA DEFAULT JPG -->
+    
+                                  <img src="{{ candidate.img_1_profile }}" alt="{{ candidate.user.get_full_name }}" class="img-fluid rounded-circle mb-3" style="max-height: 100px; max-width: 100px;">
+                              {% else %}
+                                  <img src='http://127.0.0.1:8000/media/profile_images/2.png' alt="Foto por defecto" class="img-fluid rounded-circle mb-3" style="max-height: 100px; max-width: 100px;">
+                              {% endif %}
+                              
+                              <!-- Información del candidato -->
+                              <input type="checkbox" name="selected_candidates" value="{{ candidate.id }}" class="mr-2 candidate-checkbox">
+                              <a href="{% url 'profile_view' candidate.id %}" class="text-primary fw-bold">
+                                {{ candidate.user.get_full_name }}
+                             </a>
+                              <small>{{ candidate.address }}</small>
+                          </div>
+                      </div>
+                  </div>
+              {% empty %}
+                  <div class="col-12">
+                      <div class="alert alert-warning">No hay candidatos que coincidan con los filtros.</div>
+                  </div>
+              {% endfor %}
+               
+          </div>
+
+          <!-- Botones de acción -->
+          <div class="btn-group">
+            
+              <button id="create-offer-btn" type="submit" name="action" value="create_offer" class="btn btn-success">Crear oferta a partir de seleccionados</button>
+             <button id="add-to-offer-btn" type="submit" name="action" value="add_to_existing_offer" class="btn btn-warning">Agregar a oferta existente</button>
+            
+            </div>
+      </form>
+
+  </div>
+
+  <!-- Script que deshabilita botones de crear o agregar oferta mientras no haya ningun caniddato seleccionado -->
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('.candidate-checkbox');
+        const createOfferButton = document.getElementById('create-offer-btn');
+        const addToOfferButton = document.getElementById('add-to-offer-btn');
+
+        function toggleButtons() {
+            const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+            createOfferButton.disabled = !anyChecked;
+            addToOfferButton.disabled = !anyChecked;
+        }
+
+        // Escuchar cambios en todos los checkboxes
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', toggleButtons);
+        });
+
+        // Inicializar estado de los botones al cargar la página
+        toggleButtons();
+    });
+</script>
+
+{% endblock %}

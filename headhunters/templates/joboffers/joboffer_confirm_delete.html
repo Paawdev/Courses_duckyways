@@ -1,0 +1,13 @@
+{% extends "users/base.html" %}
+
+{% block content %}
+  <h2>Confirm Deletion</h2>
+  <p>Are you sure you want to delete the job offer "{{ job_offer.title }}"?</p>
+  
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, Delete</button>
+  </form>
+
+  <a href="{% url 'joboffer_list' %}">Cancel</a>
+{% endblock %}

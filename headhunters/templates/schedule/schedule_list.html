@@ -1,0 +1,53 @@
+{% extends "users/base.html" %}
+
+
+{% block content %}
+  <div class="container">
+    <h2>Agenda de Headhunters</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Tipo de Acción</th>
+          <th>Oferta</th>
+          <th>Candidato</th>
+          <th>Descripción</th>
+          <th>Fecha</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for schedule in schedule %}
+          <tr>
+            <td>{{ schedule.type_action.name }}</td>
+            <td>
+              {% if schedule.joboffer %}
+                {{ schedule.joboffer }}
+              {% else %}
+                <em>No asignado</em>
+              {% endif %}
+            <td>
+              {% if schedule.candidate %}
+                {{ schedule.candidate }}
+              {% else %}
+                <em>No asignado</em>
+              {% endif %}
+            </td>
+            <td>{{ schedule.description }}</td>
+            <td>{{ schedule.date|date:"Y-m-d H:i" }}</td>
+            <td>{{ schedule.status }}</td>
+            <td>
+              <a href="{% url 'schedule_update' schedule.id %}" class="btn btn-primary btn-sm">Editar</a>
+              <a href="{% url 'schedule_delete' schedule.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar esta acción?');">Eliminar</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="6">No hay acciones programadas.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <a href="{% url 'schedule_create' %}">Create New tAction</a>
+{% endblock %}

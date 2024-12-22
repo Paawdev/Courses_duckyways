@@ -1,0 +1,14 @@
+{% extends "users/base.html" %}
+
+{% block content %}
+<h2>{% if module %}Actualizar Modulo{% else %}Crear Modulo{% endif %}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Renderiza el formulario automáticamente -->
+    <button type="submit" class="btn btn-primary">{% if module %}Actualizar{% else %}Crear{% endif %}</button>
+</form>
+
+<a href="{% url 'courses:teacher-course-detail' course.id %}" class="btn btn-secondary">Cancelar</a>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "role_management/dashboard_teacher.html" %}
+{% block teacher_course %}
+    <!-- START CENTRAL CONTENT -->
+        <div class="col-sm p-3 min-vh-100">
+            <h2 class="mb-4">MIS CURSOS</h2>
+
+            <!-- Teacher Courses -->
+            <div class="container">
+                <div class="row g-3">
+                    {% for teacher_course in teacher_courses %}
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                        <div class="card shadow-sm" style="max-width: 300px; height: auto;">
+                            <a href="{% url 'courses:teacher-course-detail' teacher_course.course.id %}"><img src="{{ teacher_course.course.image.url }}" class="card-img-top" alt="Course Image" style="height: 200px; object-fit: cover;"></a>
+                            <div class="card-body">
+                                <a href="{% url 'courses:teacher-course-detail' teacher_course.course.id %}"><h5 class="card-title">{{ teacher_course.course.title }}</h5></a>
+                                <p class="card-text">{{ teacher_course.course.description }}</p>
+                                <a href="#url_activar_desactivar" class="btn btn-primary">Activate</a>
+                                <a href="#url_delete" class="btn btn-danger">Delete</a>
+                            </div>
+                            <ul>
+                                <li><p>Enrolled Students: {{ teacher_course.total_users }}</p></li>
+                                <li><p>Completed Students {{ teacher_course.total_completed }}</p></li>
+                                <li><p>Wishlist Students: {{ teacher_course.total_wishlist }}</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- END CENTRAL CONTENT -->
+{% endblock %}
